@@ -43,8 +43,7 @@ public class ConsoleView {
             while (true) {
                 if (!model.isEmpty()) {
                     return model.getAttribute(RATE);
-                }
-                if (!model.isEmptyMessage()) {
+                } else if (!model.isEmptyMessage()) {
                     return model.getMessageAttribute();
                 }
             }

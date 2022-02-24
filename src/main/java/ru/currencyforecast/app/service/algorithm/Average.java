@@ -1,7 +1,6 @@
 package ru.currencyforecast.app.service.algorithm;
 
 import ru.currencyforecast.app.domain.Data;
-import ru.currencyforecast.app.util.PrintUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ public class Average implements SimpleForecastAlgorithm {
     public Data getTomorrowForecast(List<Data> dataList) {
         double average = getAverageCost(dataList);
         LocalDate tomorrow = LocalDate.now().plusDays(1);
-        PrintUtil.printDataList(dataList);
         return new Data(tomorrow, average);
     }
 

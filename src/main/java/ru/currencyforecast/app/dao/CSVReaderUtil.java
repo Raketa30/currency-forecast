@@ -37,7 +37,7 @@ public class CSVReaderUtil {
         try (BufferedReader reader = new BufferedReader(new FileReader(url))) {
             int counter = 0;
             while (reader.ready()) {
-                if (counter > daysCount) {
+                if (counter == daysCount) {
                     break;
                 }
                 String line = reader.readLine();

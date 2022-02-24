@@ -8,9 +8,9 @@ public class Constant {
     public static final String RATE = "rate";
     public static final String EXIT = "exit";
 
-    public static final String USD = "USD";
-    public static final String EUR = "EUR";
-    public static final String TRY = "TRY";
+    public static final String USD = "usd";
+    public static final String EUR = "eur";
+    public static final String TRY = "try";
 
     public static final String WEEK = "week";
     public static final String TOMORROW = "tomorrow";

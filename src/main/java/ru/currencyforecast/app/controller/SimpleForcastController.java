@@ -10,22 +10,22 @@ import java.util.Optional;
 
 import static ru.currencyforecast.app.common.Constant.*;
 
-public class ControllerImpl implements Controller {
+public class SimpleForcastController implements Controller {
     private final Model model;
     private final Service service;
 
-    public ControllerImpl(Model model, Service service) {
+    public SimpleForcastController(Model model, Service service) {
         this.model = model;
         this.service = service;
     }
 
     @Override
     public void getForecast(String command) {
+        model.clear();
         if (isMatches(command)) {
-
-            String operationalCommand = getOperationlCommand(command);
-            String currency = getCurrency(command);
-            String period = getPeriod(command);
+            String operationalCommand = getOperationlCommand(command, 0);
+            String currency = getOperationlCommand(command, 1);
+            String period = getOperationlCommand(command, 2);
 
             if (operationalCommand.equals(RATE)) {
                 Optional<List<Data>> optionalForecastData = service.getRateByCurrencyAndPeriod(currency, period);
@@ -41,19 +41,9 @@ public class ControllerImpl implements Controller {
         return command.matches(Regex.COMMAND_MATCHER);
     }
 
-    private String getOperationlCommand(String command) {
+    private String getOperationlCommand(String command, int commandIndex) {
         String[] splitedLine = command.toLowerCase().split("\\s+");
-        return splitedLine[0];
-    }
-
-    private String getCurrency(String command) {
-        String[] splitedLine = command.toLowerCase().split("\\s+");
-        return splitedLine[1].toUpperCase();
-    }
-
-    private String getPeriod(String command) {
-        String[] splitedLine = command.toLowerCase().split("\\s+");
-        return splitedLine[2];
+        return splitedLine[commandIndex];
     }
 }
 

@@ -1,8 +1,7 @@
 package ru.currencyforecast.app.factory;
 
 import ru.currencyforecast.app.controller.Controller;
-import ru.currencyforecast.app.controller.ControllerImpl;
-import ru.currencyforecast.app.domain.Data;
+import ru.currencyforecast.app.controller.SimpleForcastController;
 import ru.currencyforecast.app.model.DataModel;
 import ru.currencyforecast.app.model.Model;
 import ru.currencyforecast.app.repository.CSVRepository;
@@ -32,7 +31,7 @@ public class ConsoleAppFactory {
 
         forecastService.setAlgorithm(average);
         Service service = new ConsoleServiceImpl(repository, forecastService);
-        return new ControllerImpl(model, service);
+        return new SimpleForcastController(model, service);
     }
 
     public static Scanner getScanner() {
