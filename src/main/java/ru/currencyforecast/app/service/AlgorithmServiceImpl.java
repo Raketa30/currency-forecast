@@ -1,7 +1,7 @@
 package ru.currencyforecast.app.service;
 
 import ru.currencyforecast.app.domain.Data;
-import ru.currencyforecast.app.service.algorithm.SimpleForecastAlgorithm;
+import ru.currencyforecast.app.service.algorithm.ForecastAlgorithm;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,9 +10,9 @@ import static ru.currencyforecast.app.common.Constant.TOMORROW;
 import static ru.currencyforecast.app.common.Constant.WEEK;
 
 public class AlgorithmServiceImpl implements ForecastService {
-    private SimpleForecastAlgorithm forecastAlgorithm;
+    private ForecastAlgorithm forecastAlgorithm;
 
-    public AlgorithmServiceImpl(SimpleForecastAlgorithm forecastAlgorithm) {
+    public AlgorithmServiceImpl(ForecastAlgorithm forecastAlgorithm) {
         this.forecastAlgorithm = forecastAlgorithm;
     }
 
@@ -29,7 +29,7 @@ public class AlgorithmServiceImpl implements ForecastService {
     }
 
     @Override
-    public void setAlgorithm(SimpleForecastAlgorithm algorithm) {
+    public void setAlgorithm(ForecastAlgorithm algorithm) {
         this.forecastAlgorithm = algorithm;
     }
 }

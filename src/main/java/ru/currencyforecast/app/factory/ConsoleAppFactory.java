@@ -1,7 +1,7 @@
 package ru.currencyforecast.app.factory;
 
 import ru.currencyforecast.app.controller.Controller;
-import ru.currencyforecast.app.controller.SimpleForcastController;
+import ru.currencyforecast.app.controller.ConsoleControllerImpl;
 import ru.currencyforecast.app.model.DataModel;
 import ru.currencyforecast.app.model.Model;
 import ru.currencyforecast.app.repository.CSVRepository;
@@ -10,8 +10,8 @@ import ru.currencyforecast.app.service.ForecastService;
 import ru.currencyforecast.app.service.AlgorithmServiceImpl;
 import ru.currencyforecast.app.service.ConsoleServiceImpl;
 import ru.currencyforecast.app.service.Service;
-import ru.currencyforecast.app.service.algorithm.Average;
-import ru.currencyforecast.app.service.algorithm.SimpleForecastAlgorithm;
+import ru.currencyforecast.app.service.algorithm.AverageAlg;
+import ru.currencyforecast.app.service.algorithm.ForecastAlgorithm;
 
 import java.util.Scanner;
 
@@ -26,12 +26,12 @@ public class ConsoleAppFactory {
 
     public static Controller getController(Model model) {
         Repository repository = new CSVRepository();
-        SimpleForecastAlgorithm average = new Average();
+        ForecastAlgorithm average = new AverageAlg();
         ForecastService forecastService = new AlgorithmServiceImpl(average);
 
         forecastService.setAlgorithm(average);
         Service service = new ConsoleServiceImpl(repository, forecastService);
-        return new SimpleForcastController(model, service);
+        return new ConsoleControllerImpl(model, service);
     }
 
     public static Scanner getScanner() {

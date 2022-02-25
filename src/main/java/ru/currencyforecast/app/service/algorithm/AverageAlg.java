@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Average implements SimpleForecastAlgorithm {
+public class AverageAlg implements ForecastAlgorithm {
 
     @Override
     public Data getTomorrowForecast(List<Data> dataList) {

@@ -10,11 +10,11 @@ import java.util.Optional;
 
 import static ru.currencyforecast.app.common.Constant.*;
 
-public class SimpleForcastController implements Controller {
+public class ConsoleControllerImpl implements Controller {
     private final Model model;
     private final Service service;
 
-    public SimpleForcastController(Model model, Service service) {
+    public ConsoleControllerImpl(Model model, Service service) {
         this.model = model;
         this.service = service;
     }
@@ -28,7 +28,7 @@ public class SimpleForcastController implements Controller {
             String period = getOperationlCommand(command, 2);
 
             if (operationalCommand.equals(RATE)) {
-                Optional<List<Data>> optionalForecastData = service.getRateByCurrencyAndPeriod(currency, period);
+                Optional<List<Data>> optionalForecastData = service.getForecast(currency, period);
                 optionalForecastData.ifPresentOrElse(dataList -> model.addAttribute(RATE, dataList),
                         () -> model.addMessageAttribute(EMPTY_DATA));
             }
@@ -45,5 +45,6 @@ public class SimpleForcastController implements Controller {
         String[] splitedLine = command.toLowerCase().split("\\s+");
         return splitedLine[commandIndex];
     }
+
 }
 
