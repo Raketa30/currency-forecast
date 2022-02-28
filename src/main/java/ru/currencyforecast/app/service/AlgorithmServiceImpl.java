@@ -1,35 +1,33 @@
 package ru.currencyforecast.app.service;
 
-import ru.currencyforecast.app.domain.Data;
-import ru.currencyforecast.app.service.algorithm.ForecastAlgorithm;
+import ru.currencyforecast.app.domain.CurrencyData;
+import ru.currencyforecast.app.service.algorithm.AlgorithmService;
 
 import java.util.Collections;
 import java.util.List;
 
-import static ru.currencyforecast.app.common.Constant.TOMORROW;
-import static ru.currencyforecast.app.common.Constant.WEEK;
+import static ru.currencyforecast.app.common.Constant.FORECAST_DEPTH_TOMMOROW;
+import static ru.currencyforecast.app.common.Constant.FORECAST_DEPTH_WEEK;
 
 public class AlgorithmServiceImpl implements ForecastService {
-    private ForecastAlgorithm forecastAlgorithm;
+    private AlgorithmService algorithmService;
 
-    public AlgorithmServiceImpl(ForecastAlgorithm forecastAlgorithm) {
-        this.forecastAlgorithm = forecastAlgorithm;
+    public AlgorithmServiceImpl(AlgorithmService algorithmService) {
+        this.algorithmService = algorithmService;
     }
 
     @Override
-    public List<Data> getForecast(List<Data> dataList, String period) {
-        if (period.equals(TOMORROW)) {
-            return Collections.singletonList(forecastAlgorithm.getTomorrowForecast(dataList));
-
-        } else if (period.equals(WEEK)) {
-            return forecastAlgorithm.getWeekForecast(dataList);
+    public List<CurrencyData> getForecast(List<CurrencyData> currencyDataList, String period) {
+        if (period.equals(FORECAST_DEPTH_TOMMOROW)) {
+            return Collections.singletonList(algorithmService.getTomorrowForecast(currencyDataList));
+        } else if (period.equals(FORECAST_DEPTH_WEEK)) {
+            return algorithmService.getWeekForecast(currencyDataList);
         }
-
         return Collections.emptyList();
     }
 
     @Override
-    public void setAlgorithm(ForecastAlgorithm algorithm) {
-        this.forecastAlgorithm = algorithm;
+    public void setAlgorithm(AlgorithmService algorithm) {
+        this.algorithmService = algorithm;
     }
 }

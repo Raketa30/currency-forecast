@@ -3,15 +3,11 @@ package ru.currencyforecast.app.factory;
 import ru.currencyforecast.app.controller.Controller;
 import ru.currencyforecast.app.controller.ConsoleControllerImpl;
 import ru.currencyforecast.app.model.DataModel;
-import ru.currencyforecast.app.model.Model;
-import ru.currencyforecast.app.repository.CSVRepository;
+import ru.currencyforecast.app.repository.CurrencyRepository;
 import ru.currencyforecast.app.repository.Repository;
-import ru.currencyforecast.app.service.ForecastService;
-import ru.currencyforecast.app.service.AlgorithmServiceImpl;
-import ru.currencyforecast.app.service.ConsoleServiceImpl;
-import ru.currencyforecast.app.service.Service;
-import ru.currencyforecast.app.service.algorithm.AverageAlg;
-import ru.currencyforecast.app.service.algorithm.ForecastAlgorithm;
+import ru.currencyforecast.app.service.*;
+import ru.currencyforecast.app.service.algorithm.AverageAlgorithm;
+import ru.currencyforecast.app.service.algorithm.AlgorithmService;
 
 import java.util.Scanner;
 
@@ -20,15 +16,14 @@ public class ConsoleAppFactory {
     private ConsoleAppFactory() {
     }
 
-    public static Model getModel() {
+    public static DataModel getModel() {
         return new DataModel();
     }
 
-    public static Controller getController(Model model) {
-        Repository repository = new CSVRepository();
-        ForecastAlgorithm average = new AverageAlg();
+    public static Controller getController(DataModel model) {
+        Repository repository = new CurrencyRepository();
+        AlgorithmService average = new AverageAlgorithm();
         ForecastService forecastService = new AlgorithmServiceImpl(average);
-
         forecastService.setAlgorithm(average);
         Service service = new ConsoleServiceImpl(repository, forecastService);
         return new ConsoleControllerImpl(model, service);
@@ -36,5 +31,9 @@ public class ConsoleAppFactory {
 
     public static Scanner getScanner() {
         return new Scanner(System.in);
+    }
+
+    public static CommandService getCommandService() {
+        return new CommandService();
     }
 }

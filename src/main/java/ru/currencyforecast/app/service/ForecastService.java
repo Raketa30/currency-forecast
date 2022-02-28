@@ -1,12 +1,12 @@
 package ru.currencyforecast.app.service;
 
-import ru.currencyforecast.app.domain.Data;
-import ru.currencyforecast.app.service.algorithm.ForecastAlgorithm;
+import ru.currencyforecast.app.domain.CurrencyData;
+import ru.currencyforecast.app.service.algorithm.AlgorithmService;
 
 import java.util.List;
 
 public interface ForecastService {
-    List<Data> getForecast(List<Data> dataList, String period);
+    List<CurrencyData> getForecast(List<CurrencyData> currencyDataList, String period);
 
-    void setAlgorithm(ForecastAlgorithm algorithm);
+    void setAlgorithm(AlgorithmService algorithm);
 }

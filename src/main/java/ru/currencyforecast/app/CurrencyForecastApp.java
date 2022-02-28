@@ -1,6 +1,6 @@
 package ru.currencyforecast.app;
 
-import ru.currencyforecast.app.view.ConsoleView;
+import ru.currencyforecast.app.service.view.ConsoleView;
 
 public class CurrencyForecastApp {
     public static void main(String[] args) {

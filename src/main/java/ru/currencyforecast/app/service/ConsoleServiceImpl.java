@@ -1,7 +1,6 @@
 package ru.currencyforecast.app.service;
 
-import ru.currencyforecast.app.common.Regex;
-import ru.currencyforecast.app.domain.Data;
+import ru.currencyforecast.app.domain.CurrencyData;
 import ru.currencyforecast.app.repository.Repository;
 
 import java.util.List;
@@ -20,9 +19,9 @@ public class ConsoleServiceImpl implements Service {
     }
 
     @Override
-    public Optional<List<Data>> getForecast(String currency, String period) {
-        Optional<List<Data>> optionalDataByCurrencyAndPeriod = repository.findAllByCurrencyLimitByDays(currency, ALGORITHM_BASE_DAYS);
-        return optionalDataByCurrencyAndPeriod.map(dataList -> forecastService.getForecast(dataList, period));
+    public Optional<List<CurrencyData>> getForecast(String currency, String period) {
+        return repository.getCurrencyData(currency, ALGORITHM_BASE_DAYS)
+                .map(dataList -> forecastService.getForecast(dataList, period));
     }
 
 }
