@@ -4,7 +4,6 @@ import ru.currencyforecast.app.domain.CurrencyData;
 import ru.currencyforecast.app.repository.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import static ru.currencyforecast.app.common.Constant.ALGORITHM_BASE_DAYS;
 
@@ -19,9 +18,9 @@ public class ConsoleServiceImpl implements Service {
     }
 
     @Override
-    public Optional<List<CurrencyData>> getForecast(String currency, String period) {
-        return repository.getCurrencyData(currency, ALGORITHM_BASE_DAYS)
-                .map(dataList -> forecastService.getForecast(dataList, period));
+    public List<CurrencyData> getForecast(String currency, String period) {
+        List<CurrencyData> currencyData = repository.getCurrencyData(currency, ALGORITHM_BASE_DAYS);
+        return forecastService.getForecast(currencyData, period);
     }
 
 }

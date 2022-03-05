@@ -1,7 +1,10 @@
 package ru.currencyforecast.app.controller;
 
+import ru.currencyforecast.app.domain.CurrencyData;
 import ru.currencyforecast.app.model.DataModel;
 import ru.currencyforecast.app.service.Service;
+
+import java.util.List;
 
 import static ru.currencyforecast.app.common.Constant.*;
 
@@ -26,8 +29,12 @@ public class ConsoleControllerImpl implements Controller {
     }
 
     private void getForcast(String currency, String period) {
-        service.getForecast(currency, period)
-                .ifPresentOrElse(model::addAttribute, () -> model.addMessageAttribute(MESSAGE_EMPTY_DATA));
+        List<CurrencyData> forecastCurrencyData = service.getForecast(currency, period);
+        if (forecastCurrencyData.isEmpty()) {
+            model.addMessageAttribute(MESSAGE_EMPTY_DATA);
+        } else {
+            model.addAttribute(forecastCurrencyData);
+        }
     }
 }
 

@@ -6,8 +6,7 @@ import ru.currencyforecast.app.service.algorithm.AlgorithmService;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.currencyforecast.app.common.Constant.FORECAST_DEPTH_TOMMOROW;
-import static ru.currencyforecast.app.common.Constant.FORECAST_DEPTH_WEEK;
+import static ru.currencyforecast.app.common.Constant.*;
 
 public class AlgorithmServiceImpl implements ForecastService {
     private AlgorithmService algorithmService;
@@ -19,9 +18,10 @@ public class AlgorithmServiceImpl implements ForecastService {
     @Override
     public List<CurrencyData> getForecast(List<CurrencyData> currencyDataList, String period) {
         if (period.equals(FORECAST_DEPTH_TOMMOROW)) {
-            return Collections.singletonList(algorithmService.getTomorrowForecast(currencyDataList));
+            return algorithmService.getForecast(currencyDataList, FORECAST_DEPTH_TOMORROW_INDEX);
+
         } else if (period.equals(FORECAST_DEPTH_WEEK)) {
-            return algorithmService.getWeekForecast(currencyDataList);
+            return algorithmService.getForecast(currencyDataList, FORECAST_DEPTH_WEEK_INDEX);
         }
         return Collections.emptyList();
     }

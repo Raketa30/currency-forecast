@@ -7,25 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AverageAlgorithm implements AlgorithmService {
-
     @Override
-    public CurrencyData getTomorrowForecast(List<CurrencyData> currencyDataList) {
-        String titleFormList = getDataTitleFormList(currencyDataList);
-        double average = getAverageCost(currencyDataList);
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
-        return new CurrencyData(tomorrow, average, titleFormList);
-    }
-
-    @Override
-    public List<CurrencyData> getWeekForecast(List<CurrencyData> currencyDataList) {
+    public List<CurrencyData> getForecast(List<CurrencyData> currencyDataList, int days) {
         List<CurrencyData> processList = new ArrayList<>(currencyDataList);
         List<CurrencyData> weekCurrencyDataList = new ArrayList<>();
         String titleFormList = getDataTitleFormList(currencyDataList);
         int nextDayCounter = 1;
-        for (int i = 0; i < currencyDataList.size(); i++) {
+        for (int i = 0; i < days; i++) {
+
             double average = getAverageCost(processList.subList(i, processList.size()));
             LocalDate nextDay = LocalDate.now().plusDays(nextDayCounter++);
-            CurrencyData currencyData = new CurrencyData(nextDay, average, titleFormList);
+            CurrencyData currencyData = new CurrencyData(100, nextDay, average, titleFormList);
             processList.add(currencyData);
             weekCurrencyDataList.add(currencyData);
         }
@@ -33,12 +25,12 @@ public class AverageAlgorithm implements AlgorithmService {
     }
 
     private String getDataTitleFormList(List<CurrencyData> currencyDataList) {
-        return currencyDataList.get(0).getTitle();
+        return currencyDataList.get(0).getCdx();
     }
 
     private double getAverageCost(List<CurrencyData> currencyDataList) {
         return currencyDataList.stream()
-                .mapToDouble(CurrencyData::getCost)
+                .mapToDouble(CurrencyData::getCurs)
                 .average().getAsDouble();
     }
 }

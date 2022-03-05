@@ -1,15 +1,12 @@
-package ru.currencyforecast.app.service.view;
+package ru.currencyforecast.app.view;
 
 import ru.currencyforecast.app.controller.Controller;
-import ru.currencyforecast.app.domain.CurrencyData;
 import ru.currencyforecast.app.factory.ConsoleAppFactory;
 import ru.currencyforecast.app.model.DataModel;
 import ru.currencyforecast.app.service.CommandService;
 import ru.currencyforecast.app.util.PrintUtil;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.*;
 
 import static ru.currencyforecast.app.common.Constant.COMMAND_EXIT;
 import static ru.currencyforecast.app.common.Constant.MESSAGE_WRONG_COMMAND;
@@ -27,7 +24,7 @@ public class ConsoleView {
         this.commandService = ConsoleAppFactory.getCommandService();
     }
 
-    public void init() {
+    public void launch() {
         PrintUtil.printLine("Enter your command:");
         while (true) {
             String command = scanner.nextLine();
@@ -41,6 +38,7 @@ public class ConsoleView {
             String global = commandService.getGlobalCommand(command);
             String currency = commandService.getCurrencyCommand(command);
             String period = commandService.getPeriodCommand(command);
+
             if (isValid(global, currency, period)) {
                 controller.execute(global, currency, period);
                 printResult();
@@ -55,28 +53,15 @@ public class ConsoleView {
     }
 
     private void printResult() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Callable<Object> task = () -> {
-            while (true) {
-                if (!model.isEmpty()) {
-                    return model.getCurrencyDataList();
+        while (true) {
+            if (!model.isEmpty()) {
+                PrintUtil.printDataList(model.getCurrencyDataList());
+                return;
 
-                } else if (!model.isEmptyMessage()) {
-                    return model.getMessageAttribute();
-                }
+            } else if (!model.isEmptyMessage()) {
+                PrintUtil.printLine(model.getMessageAttribute());
+                return;
             }
-        };
-        Future<Object> dataFuture = executorService.submit(task);
-        try {
-            Object dataFromModel = dataFuture.get();
-            if (dataFromModel instanceof List) {
-                PrintUtil.printDataList((List<CurrencyData>) dataFromModel);
-            } else {
-                PrintUtil.printLine((String) dataFromModel);
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
         }
-        executorService.shutdown();
     }
 }

@@ -1,6 +1,8 @@
 package ru.currencyforecast.app.common;
 
 public class Constant {
+    //charset
+    public static final String CHARSET = "cp1251";
     //links
     public static final String USD_CSV_LINK = "csv_data/USD_F01_02_2005_T05_03_2022.csv";
     public static final String EUR_CSV_LINK = "csv_data/EUR_F01_02_2005_T05_03_2022.csv";
@@ -12,7 +14,7 @@ public class Constant {
     public static final String CSV_HEADER_DATE = "data";
     public static final String CSV_HEADER_PRICE = "curs";
     public static final String CSV_HEADER_CURRENCY = "cdx";
-    public static final String CSV_DELIMETER = ";";
+    public static final char CSV_DELIMETER = ';';
 
     public static final String COMMAND_RATE = "rate";
     public static final String COMMAND_EXIT = "exit";
@@ -24,7 +26,10 @@ public class Constant {
     public static final String CURRENCY_BGN = "bgn";
 
     public static final String FORECAST_DEPTH_WEEK = "week";
+    public static final int FORECAST_DEPTH_WEEK_INDEX = 7;
+
     public static final String FORECAST_DEPTH_TOMMOROW = "tomorrow";
+    public static final int FORECAST_DEPTH_TOMORROW_INDEX = 1;
 
     public static final int ALGORITHM_BASE_DAYS = 7;
     //messages

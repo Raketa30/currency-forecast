@@ -12,7 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <!--opencsv-->
-        <opencsv.version>5.6</opencsv.version>
+        <opencsv.version>5.5</opencsv.version>
         <!-- Logging -->
         <logback.version>1.2.10</logback.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -21,7 +21,10 @@
         <jupiter.version>5.8.2</jupiter.version>
         <assertj.version>3.22.0</assertj.version>
 
+        <project.build.sourceEncoding>cp1251</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <distributionManagement>
         <snapshotRepository>
             <id>nexus-snapshots</id>
@@ -114,7 +117,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
             </plugin>
-
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
@@ -127,6 +129,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
