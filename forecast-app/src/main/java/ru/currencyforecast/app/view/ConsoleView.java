@@ -3,7 +3,7 @@ package ru.currencyforecast.app.view;
 import ru.currencyforecast.app.controller.Controller;
 import ru.currencyforecast.app.factory.ConsoleAppFactory;
 import ru.currencyforecast.app.model.DataModel;
-import ru.currencyforecast.app.cli.ConsoleCommandService;
+import ru.currencyforecast.app.service.ConsoleCommandService;
 import ru.currencyforecast.app.util.PrintUtil;
 
 import java.util.Scanner;

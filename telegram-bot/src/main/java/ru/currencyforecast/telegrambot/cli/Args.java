@@ -1,4 +1,4 @@
-package ru.currencyforecast.app.cli;
+package ru.currencyforecast.telegrambot.cli;
 
 import com.beust.jcommander.Parameter;
 

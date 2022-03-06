@@ -1,4 +1,4 @@
-package ru.currencyforecast.app.cli;
+package ru.currencyforecast.app.service;
 
 import java.util.List;
 

@@ -4,11 +4,11 @@ public class Constant {
     //charset
     public static final String CHARSET = "cp1251";
     //links
-    public static final String USD_CSV_LINK = "csv_data/USD_F01_02_2005_T05_03_2022.csv";
-    public static final String EUR_CSV_LINK = "csv_data/EUR_F01_02_2005_T05_03_2022.csv";
-    public static final String TRY_CSV_LINK = "csv_data/TRY_F01_02_2005_T05_03_2022.csv";
-    public static final String AMD_CSV_LINK = "csv_data/AMD_F01_02_2005_T05_03_2022.csv";
-    public static final String BGN_CSV_LINK = "csv_data/BGN_F01_02_2005_T05_03_2022.csv";
+    public static final String USD_CSV_LINK = "src/main/resources/csv_data/USD_F01_02_2005_T05_03_2022.csv";
+    public static final String EUR_CSV_LINK = "src/main/resources/csv_data/EUR_F01_02_2005_T05_03_2022.csv";
+    public static final String TRY_CSV_LINK = "src/main/resources/csv_data/TRY_F01_02_2005_T05_03_2022.csv";
+    public static final String AMD_CSV_LINK = "src/main/resources/csv_data/AMD_F01_02_2005_T05_03_2022.csv";
+    public static final String BGN_CSV_LINK = "src/main/resources/csv_data/BGN_F01_02_2005_T05_03_2022.csv";
     //for csv
     public static final String CSV_HEADER_NOMINAL = "nominal";
     public static final String CSV_HEADER_DATE = "data";
