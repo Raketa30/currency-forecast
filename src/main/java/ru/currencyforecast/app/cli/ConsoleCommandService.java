@@ -1,15 +1,15 @@
-package ru.currencyforecast.app.service;
+package ru.currencyforecast.app.cli;
 
 import java.util.List;
 
 import static ru.currencyforecast.app.common.Constant.*;
 
-public class CommandService {
+public class ConsoleCommandService {
     private final List<String> global;
     private final List<String> currency;
     private final List<String> period;
 
-    public CommandService() {
+    public ConsoleCommandService() {
         this.global = List.of(COMMAND_RATE, COMMAND_EXIT);
         this.currency = List.of(CURRENCY_USD, CURRENCY_TRY, CURRENCY_EUR);
         this.period = List.of(FORECAST_DEPTH_WEEK, FORECAST_DEPTH_TOMMOROW);

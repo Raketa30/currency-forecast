@@ -3,7 +3,7 @@ package ru.currencyforecast.app.view;
 import ru.currencyforecast.app.controller.Controller;
 import ru.currencyforecast.app.factory.ConsoleAppFactory;
 import ru.currencyforecast.app.model.DataModel;
-import ru.currencyforecast.app.service.CommandService;
+import ru.currencyforecast.app.cli.ConsoleCommandService;
 import ru.currencyforecast.app.util.PrintUtil;
 
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class ConsoleView {
     private final DataModel model;
     private final Controller controller;
     private final Scanner scanner;
-    private final CommandService commandService;
+    private final ConsoleCommandService commandService;
 
     public ConsoleView() {
         this.model = ConsoleAppFactory.getModel();
@@ -25,8 +25,8 @@ public class ConsoleView {
     }
 
     public void launch() {
-        PrintUtil.printLine("Enter your command:");
         while (true) {
+            PrintUtil.printLine("Enter your command:");
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase(COMMAND_EXIT)) {
                 return;

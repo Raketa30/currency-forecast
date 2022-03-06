@@ -8,6 +8,7 @@ import ru.currencyforecast.app.repository.Repository;
 import ru.currencyforecast.app.service.*;
 import ru.currencyforecast.app.service.algorithm.AverageAlgorithm;
 import ru.currencyforecast.app.service.algorithm.AlgorithmService;
+import ru.currencyforecast.app.cli.ConsoleCommandService;
 
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class ConsoleAppFactory {
         return new Scanner(System.in);
     }
 
-    public static CommandService getCommandService() {
-        return new CommandService();
+    public static ConsoleCommandService getCommandService() {
+        return new ConsoleCommandService();
     }
 }
