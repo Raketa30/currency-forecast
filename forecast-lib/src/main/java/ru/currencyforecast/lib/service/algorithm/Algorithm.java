@@ -5,5 +5,7 @@ import ru.currencyforecast.lib.domain.CurrencyData;
 import java.util.List;
 
 public interface Algorithm {
-    List<CurrencyData> getForecast(List<CurrencyData> allByCurrency, int days);
+    List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataFromRepository, int periodDaysIndex);
+
+    int getBaseDaysNumber();
 }

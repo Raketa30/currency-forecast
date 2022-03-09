@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.currencyforecast.lib.domain.Response;
+import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.telegram.factory.CurrencyBotFactory;
 import ru.currencyforecast.telegram.service.BotService;

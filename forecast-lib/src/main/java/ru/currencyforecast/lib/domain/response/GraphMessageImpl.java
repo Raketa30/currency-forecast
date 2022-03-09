@@ -1,8 +1,8 @@
-package ru.currencyforecast.lib.domain;
+package ru.currencyforecast.lib.domain.response;
 
 import com.github.sh0nk.matplotlib4j.Plot;
 
-public class GraphMessageImpl implements Message{
+public class GraphMessageImpl implements Message {
     private final Plot plot;
 
     public GraphMessageImpl(Plot plot) {

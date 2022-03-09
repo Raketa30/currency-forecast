@@ -4,9 +4,16 @@ import ru.currencyforecast.lib.domain.CurrencyData;
 
 import java.util.List;
 
-public class InternetAlgorithmImpl implements Algorithm{
+import static ru.currencyforecast.lib.common.Constant.ALG_INTERNET_BASE;
+
+public class InternetAlgorithmImpl implements Algorithm {
     @Override
-    public List<CurrencyData> getForecast(List<CurrencyData> allByCurrency, int days) {
+    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataFromRepository, int periodDaysIndex) {
         return null;
+    }
+
+    @Override
+    public int getBaseDaysNumber() {
+        return ALG_INTERNET_BASE;
     }
 }

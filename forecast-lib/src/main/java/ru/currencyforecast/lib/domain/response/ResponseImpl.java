@@ -1,4 +1,4 @@
-package ru.currencyforecast.lib.domain;
+package ru.currencyforecast.lib.domain.response;
 
 public class ResponseImpl implements Response {
     private final Message message;

@@ -1,9 +1,9 @@
 package ru.currencyforecast.console.app.view;
 
+import ru.currencyforecast.console.app.factory.ConsoleAppFactory;
 import ru.currencyforecast.lib.cli.Commander;
 import ru.currencyforecast.lib.controller.Controller;
-import ru.currencyforecast.lib.domain.Response;
-import ru.currencyforecast.console.app.factory.ConsoleAppFactory;
+import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.util.PrintUtil;
 

@@ -1,6 +1,6 @@
-package ru.currencyforecast.lib.domain;
+package ru.currencyforecast.lib.domain.response;
 
-public class TextMessageImpl implements Message{
+public class TextMessageImpl implements Message {
     private final String text;
 
     public TextMessageImpl(String text) {

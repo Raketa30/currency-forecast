@@ -1,6 +1,6 @@
 package ru.currencyforecast.lib.model;
 
-import ru.currencyforecast.lib.domain.Response;
+import ru.currencyforecast.lib.domain.response.Response;
 
 import java.util.Objects;
 

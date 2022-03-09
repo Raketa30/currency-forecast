@@ -2,15 +2,12 @@ package ru.currencyforecast.console.app.factory;
 
 import ru.currencyforecast.lib.cli.Commander;
 import ru.currencyforecast.lib.cli.CommanderImpl;
-import ru.currencyforecast.lib.controller.ConsoleControllerImpl;
+import ru.currencyforecast.lib.controller.ControllerImpl;
 import ru.currencyforecast.lib.controller.Controller;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.repository.CurrencyRepository;
 import ru.currencyforecast.lib.repository.Repository;
-import ru.currencyforecast.lib.service.AlgorithmServiceImpl;
-import ru.currencyforecast.lib.service.ConsoleServiceImpl;
-import ru.currencyforecast.lib.service.ForecastService;
-import ru.currencyforecast.lib.service.Service;
+import ru.currencyforecast.lib.service.*;
 import ru.currencyforecast.lib.service.algorithm.Algorithm;
 import ru.currencyforecast.lib.service.algorithm.AverageAlgorithmImpl;
 
@@ -27,10 +24,11 @@ public class ConsoleAppFactory {
     public static Controller getController(DataModel dataModel) {
         Repository repository = new CurrencyRepository();
         Algorithm average = new AverageAlgorithmImpl();
-        ForecastService forecastService = new AlgorithmServiceImpl(average);
-        forecastService.setAlgorithm(average);
-        Service service = new ConsoleServiceImpl(repository, forecastService);
-        return new ConsoleControllerImpl(dataModel, service);
+        AlgorithmService algorithmService = new AlgorithmServiceImpl(average);
+        ImageService imageService = new ImageServiceImpl();
+        algorithmService.setAlgorithm(average);
+        Service service = new ServiceImpl(repository, algorithmService, imageService);
+        return new ControllerImpl(dataModel, service);
     }
 
     public static Scanner getScanner() {

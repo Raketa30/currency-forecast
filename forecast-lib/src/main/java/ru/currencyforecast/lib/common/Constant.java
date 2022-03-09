@@ -15,19 +15,25 @@ public class Constant {
     public static final String CSV_HEADER_PRICE = "curs";
     public static final String CSV_HEADER_CURRENCY = "cdx";
     public static final char CSV_DELIMETER = ';';
+    public static final String DATE_FORMAT_PATTERN = "dd.MM.yyyy";
     //commands
     public static final String COMMAND_RATE = "rate";
     public static final String COMMAND_EXIT = "exit";
     public static final String COMMAND_DATE = "-date";
     public static final String COMMAND_PERIOD = "-period";
-    public static final String COMMAND_ALGORITH = "-alg";
+    public static final String COMMAND_ALGORITHM = "-alg";
     public static final String COMMAND_OUTPUT = "-output";
+    public static final String COMMAND_HELP = "-help";
     //algorithm
     public static final String ALG_ACTUAL = "actual";
     public static final String ALG_MISTIC = "mistic";
     public static final String ALG_INTERNET = "internet";
     public static final String ALG_AVG = "average";
-    public static final int ALGORITHM_BASE_DAYS = 7;
+
+    public static final int ALG_ACTUAL_BASE = 1095; //3 year * 365 days
+    public static final int ALG_MISTIC_BASE = 7;
+    public static final int ALG_INTERNET_BASE = 7;
+    public static final int ALG_AVG_BASE = 7;// week
     //output
     public static final String OUTPUT_LIST = "list";
     public static final String OUTPUT_GRAPH = "graph";
@@ -48,6 +54,10 @@ public class Constant {
     public static final String MESSAGE_EMPTY_DATA = "Empty data in csv file";
     public static final String MESSAGE_WRONG_COMMAND = "Wrong command, for help use -help command ";
     public static final String MESSAGE_WRONG_ALG = "Wrong algorithm: ";
+    public static final String MESSAGE_WRONG_PERIOD = "Wrong period: ";
+    public static final String MESSAGE_WRONG_OUTPUT = "Wrong output: ";
+    public static final String MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST = "Multicurrency not supported in output -list";
+
 
     private Constant() {
     }

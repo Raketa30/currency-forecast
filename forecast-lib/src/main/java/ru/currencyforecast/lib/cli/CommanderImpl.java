@@ -1,12 +1,13 @@
 package ru.currencyforecast.lib.cli;
 
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.UnixStyleUsageFormatter;
 import ru.currencyforecast.lib.controller.Controller;
 
-import java.util.List;
 import java.util.Objects;
 
-import static ru.currencyforecast.lib.common.Constant.*;
+import static ru.currencyforecast.lib.common.Constant.MESSAGE_WRONG_COMMAND;
+import static ru.currencyforecast.lib.common.Constant.OUTPUT_LIST;
 
 public class CommanderImpl implements Commander {
     private final Controller controller;
@@ -25,7 +26,7 @@ public class CommanderImpl implements Commander {
             controller.addMessage(stringBuilder.toString());
         } else {
             if (valid(arguments)) {
-                controller.execute(arguments.getRate(), arguments.getPeriod(), arguments.getOutput(), arguments.getAlg());
+                controller.execute(arguments.getRate(), arguments.getPeriod(), arguments.getAlg(), arguments.getOutput());
             } else {
                 controller.addMessage(MESSAGE_WRONG_COMMAND);
             }
@@ -35,8 +36,9 @@ public class CommanderImpl implements Commander {
     private Arguments extractArguments(String command) {
         Arguments arguments = new Arguments();
         commander = JCommander.newBuilder()
-                .programName("Telegram Bot")
                 .addObject(arguments)
+                .programName("rate")
+                .usageFormatter(new UnixStyleUsageFormatter(commander))
                 .build();
         commander.parse(command.split("\\s+"));
         return arguments;
@@ -61,6 +63,4 @@ public class CommanderImpl implements Commander {
         boolean isList = arguments.getOutput().equals(OUTPUT_LIST);
         return currencyRateSize && isList;
     }
-
-
 }

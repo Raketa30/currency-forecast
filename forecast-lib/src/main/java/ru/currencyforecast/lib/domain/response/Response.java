@@ -1,4 +1,4 @@
-package ru.currencyforecast.lib.domain;
+package ru.currencyforecast.lib.domain.response;
 
 public interface Response {
     Message getMessage();
