@@ -25,27 +25,27 @@ public class CurrencyRepository implements Repository {
     }
 
     @Override
-    public Optional<CurrencyData> getCurrencyDataByDate(String currency, String date) {
-        if (currencyUrlsMap.containsKey(currency)) {
-            return getDataByDate(currencyUrlsMap.get(currency), date);
+    public Optional<CurrencyData> getDataByCdxAndDate(String cdx, String date) {
+        if (currencyUrlsMap.containsKey(cdx)) {
+            return getDataByDate(currencyUrlsMap.get(cdx), date);
         } else {
             return Optional.empty();
         }
     }
 
     @Override
-    public List<CurrencyData> getDataByCdxAndLimitByALgBaseIndex(String currency, int days) {
-        if (currencyUrlsMap.containsKey(currency)) {
-            return getDataListByDays(currencyUrlsMap.get(currency), days);
+    public List<CurrencyData> getDataByCdxAndLimitByALgBaseIndex(String cdx, int algBaseIndex) {
+        if (currencyUrlsMap.containsKey(cdx)) {
+            return getDataListByDays(currencyUrlsMap.get(cdx), algBaseIndex);
         } else {
             return Collections.emptyList();
         }
     }
 
     @Override
-    public List<CurrencyData> readAllData(String currency) {
-        if (currencyUrlsMap.containsKey(currency)) {
-            return getAllData(currencyUrlsMap.get(currency));
+    public List<CurrencyData> getAllDataByCdx(String cdx) {
+        if (currencyUrlsMap.containsKey(cdx)) {
+            return getAllData(currencyUrlsMap.get(cdx));
         } else {
             return Collections.emptyList();
         }

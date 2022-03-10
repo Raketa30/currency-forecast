@@ -7,14 +7,19 @@ import java.util.List;
 
 import static ru.currencyforecast.lib.common.Constant.ALG_ACTUAL_BASE;
 
+/**
+ * Алгоритм “Актуальный”.
+ * Рассчитывается, как сумма курса за (текущий год - 2 + текущий год - 3),
+ * то есть прогноз на 25.12.2022 будет считаться как прогноз 25.12.2020 + 25.12.2019.
+ * Если число сильно впереди и нет данных за год - кидать ошибку.
+ */
 public class ActualAlgorithmImpl implements Algorithm {
     @Override
-    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataFromRepository, int periodDaysIndex) {
-        List<CurrencyData> processList = new ArrayList<>(dataFromRepository);
+    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
+        List<CurrencyData> processList = new ArrayList<>(dataListForAnalisys);
         List<CurrencyData> resultList = new ArrayList<>();
-        String titleFormList = getDataTitleFormList(dataFromRepository);
-        int currencyNominal = getCurrencyNominal(dataFromRepository);
-
+        String titleFormList = getDataTitleFormList(dataListForAnalisys);
+        int currencyNominal = getCurrencyNominal(dataListForAnalisys);
 
 
         return resultList;

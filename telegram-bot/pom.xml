@@ -6,7 +6,12 @@
 
     <packaging>jar</packaging>
 
-    <groupId>ru.currencyforecast.app</groupId>
+    <parent>
+        <groupId>ru.currencyforecast.app</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <artifactId>currency-forecast</artifactId>
+    </parent>
+
     <artifactId>telegram-bot</artifactId>
     <version>1.0-SNAPSHOT</version>
 

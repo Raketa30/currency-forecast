@@ -1,5 +1,6 @@
 package ru.currencyforecast.lib.controller;
 
+import lombok.RequiredArgsConstructor;
 import ru.currencyforecast.lib.domain.response.ResponseImpl;
 import ru.currencyforecast.lib.domain.response.TextMessageImpl;
 import ru.currencyforecast.lib.model.DataModel;
@@ -9,14 +10,10 @@ import java.util.List;
 
 import static ru.currencyforecast.lib.common.Constant.*;
 
+@RequiredArgsConstructor
 public class ControllerImpl implements Controller {
     private final DataModel dataModel;
     private final Service service;
-
-    public ControllerImpl(DataModel dataModel, Service service) {
-        this.dataModel = dataModel;
-        this.service = service;
-    }
 
     @Override
     public void addMessage(String message) {

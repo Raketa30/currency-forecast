@@ -1,9 +1,12 @@
 package ru.currencyforecast.telegram;
 
-import ru.currencyforecast.telegram.bot.CurrencyBot;
+import ru.currencyforecast.telegram.factory.BotFactory;
 
+/**
+ * Запуск телеграм бота
+ */
 public class CurrencyBotApp {
     public static void main(String[] args) {
-        new CurrencyBot().launch();
+        BotFactory.getCurrencyBot().launch();
     }
 }

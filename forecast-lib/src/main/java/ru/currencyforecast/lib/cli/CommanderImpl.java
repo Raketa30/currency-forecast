@@ -2,19 +2,17 @@ package ru.currencyforecast.lib.cli;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.UnixStyleUsageFormatter;
+import lombok.RequiredArgsConstructor;
 import ru.currencyforecast.lib.controller.Controller;
 
 import java.util.Objects;
 
 import static ru.currencyforecast.lib.common.Constant.MESSAGE_WRONG_COMMAND;
 
+@RequiredArgsConstructor
 public class CommanderImpl implements Commander {
     private final Controller controller;
     private JCommander commander;
-
-    public CommanderImpl(Controller controller) {
-        this.controller = controller;
-    }
 
     @Override
     public void execute(String command) {

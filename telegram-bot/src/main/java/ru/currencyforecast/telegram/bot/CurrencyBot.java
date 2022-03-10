@@ -1,5 +1,6 @@
 package ru.currencyforecast.telegram.bot;
 
+import lombok.AllArgsConstructor;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,20 +10,15 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.model.DataModel;
-import ru.currencyforecast.telegram.factory.CurrencyBotFactory;
 import ru.currencyforecast.telegram.service.BotService;
 
 import static ru.currencyforecast.telegram.common.Constant.CURRENCY_BOT_NAME;
 import static ru.currencyforecast.telegram.common.Constant.CURRENCY_BOT_TOKEN;
 
+@AllArgsConstructor
 public class CurrencyBot extends TelegramLongPollingBot {
     private final BotService botService;
     private final DataModel dataModel;
-
-    public CurrencyBot() {
-        this.dataModel = CurrencyBotFactory.getDataModel();
-        this.botService = CurrencyBotFactory.getBotService(dataModel);
-    }
 
     @Override
     public String getBotToken() {
@@ -36,9 +32,8 @@ public class CurrencyBot extends TelegramLongPollingBot {
 
     public void launch() {
         try {
-            CurrencyBot currencyBot = new CurrencyBot();
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(currencyBot);
+            telegramBotsApi.registerBot(this);
         } catch (TelegramApiException e) {
             //todo logger
         }
