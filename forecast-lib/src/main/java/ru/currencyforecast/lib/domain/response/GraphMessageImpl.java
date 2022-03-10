@@ -1,16 +1,15 @@
 package ru.currencyforecast.lib.domain.response;
 
-import com.github.sh0nk.matplotlib4j.Plot;
+import lombok.AllArgsConstructor;
 
+import java.nio.file.Path;
+
+@AllArgsConstructor
 public class GraphMessageImpl implements Message {
-    private final Plot plot;
-
-    public GraphMessageImpl(Plot plot) {
-        this.plot = plot;
-    }
+    private final Path pathToImg;
 
     @Override
-    public Plot getMessageData() {
-        return plot;
+    public Path getMessageData() {
+        return pathToImg;
     }
 }

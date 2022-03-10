@@ -1,9 +1,9 @@
 package ru.currencyforecast.console.app;
 
-import ru.currencyforecast.console.app.view.ConsoleView;
+import ru.currencyforecast.console.app.factory.ConsoleAppFactory;
 
 public class CurrencyForecastApp {
     public static void main(String[] args) {
-        new ConsoleView().launch();
+        ConsoleAppFactory.getConsoleView().launchConsole();
     }
 }

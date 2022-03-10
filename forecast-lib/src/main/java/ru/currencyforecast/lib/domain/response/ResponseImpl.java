@@ -1,13 +1,11 @@
 package ru.currencyforecast.lib.domain.response;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class ResponseImpl implements Response {
     private final Message message;
     private final boolean isPicture;
-
-    public ResponseImpl(Message message, boolean isPicture) {
-        this.message = message;
-        this.isPicture = isPicture;
-    }
 
     @Override
     public Message getMessage() {
