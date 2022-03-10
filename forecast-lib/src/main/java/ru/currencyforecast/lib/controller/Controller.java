@@ -1,6 +1,6 @@
 package ru.currencyforecast.lib.controller;
 
-import java.util.List;
+import ru.currencyforecast.lib.domain.Request;
 
 /**
  * Основной контроллер
@@ -14,10 +14,7 @@ public interface Controller {
 
     /**
      * Непосредственное выполнение комманды с параметрами:
-     * @param currency - список валют
-     * @param period - период или конкретная дата
-     * @param algorithm - алгоритм прогноза
-     * @param output - вывод: лист или график
+        @param request - параметры запроса
      */
-    void execute(List<String> currency, String period, String algorithm, String output);
+    void execute(Request request);
 }

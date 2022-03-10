@@ -21,13 +21,14 @@
         <maven.compiler.target>11</maven.compiler.target>
         <!-- Logging -->
         <logback.version>1.2.10</logback.version>
-        <slf4j.version>1.7.36</slf4j.version>
         <!--Testing-->
         <mockito.version>4.3.1</mockito.version>
         <jupiter.version>5.8.2</jupiter.version>
         <assertj.version>3.22.0</assertj.version>
         <!--Lombok-->
         <lombok.version>1.18.22</lombok.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <distributionManagement>
@@ -38,21 +39,6 @@
     </distributionManagement>
 
     <dependencies>
-        <!-- Logging with SLF4J & LogBack -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <!--Testing with JUnit 5 and Mockito-->
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
         <dependency>

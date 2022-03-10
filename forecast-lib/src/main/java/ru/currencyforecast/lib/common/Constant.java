@@ -1,5 +1,8 @@
 package ru.currencyforecast.lib.common;
 
+/**
+ * Константы используемые в сервисе
+ */
 public class Constant {
     //charset
     public static final String CHARSET = "cp1251";
@@ -18,7 +21,7 @@ public class Constant {
     public static final String DATE_FORMAT_PATTERN = "dd.MM.yyyy";
     //commands
     public static final String COMMAND_RATE = "rate";
-    public static final String COMMAND_EXIT = "exit";
+    public static final String COMMAND_EXIT = "-exit";
     public static final String COMMAND_DATE = "-date";
     public static final String COMMAND_PERIOD = "-period";
     public static final String COMMAND_ALGORITHM = "-alg";
@@ -37,6 +40,7 @@ public class Constant {
     //output
     public static final String OUTPUT_LIST = "list";
     public static final String OUTPUT_GRAPH = "graph";
+    public static final int MAX_OUTPUT = 5;
     //currency
     public static final String CURRENCY_USD = "usd";
     public static final String CURRENCY_EUR = "eur";
@@ -52,11 +56,16 @@ public class Constant {
     public static final int FORECAST_DEPTH_TOMORROW_INDEX = 1;
     //messages
     public static final String MESSAGE_EMPTY_DATA = "Empty data in csv file";
-    public static final String MESSAGE_WRONG_COMMAND = "Wrong command, for help use -help command ";
+    public static final String MESSAGE_WRONG_COMMAND = "Wrong command format, for help use -help command: ";
     public static final String MESSAGE_WRONG_ALG = "Wrong algorithm: ";
     public static final String MESSAGE_WRONG_PERIOD = "Wrong period: ";
     public static final String MESSAGE_WRONG_OUTPUT = "Wrong output: ";
     public static final String MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST = "Multicurrency not supported in output -list";
+    public static final String MESSAGE_NODATA_FOR_RATE = "Rate list is empty";
+    public static final String MESSAGE_RATE_SIZE_ERROR = "Rate size : ";
+    public static final String MESSAGE_PERIOD_OR_DATE = "Wrong period or date";
+    public static final String MESSAGE_EMPTY_OUTPUT = "Empty output";
+    public static final String MESSAGE_EMPTY_ALG = "Empty algorihm";
 
 
     private Constant() {

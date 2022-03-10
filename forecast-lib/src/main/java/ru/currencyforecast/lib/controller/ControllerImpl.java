@@ -1,15 +1,16 @@
 package ru.currencyforecast.lib.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ru.currencyforecast.lib.domain.Request;
 import ru.currencyforecast.lib.domain.response.ResponseImpl;
 import ru.currencyforecast.lib.domain.response.TextMessageImpl;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.service.Service;
 
-import java.util.List;
-
 import static ru.currencyforecast.lib.common.Constant.*;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ControllerImpl implements Controller {
     private final DataModel dataModel;
@@ -18,25 +19,33 @@ public class ControllerImpl implements Controller {
     @Override
     public void addMessage(String message) {
         dataModel.setResponseData(new ResponseImpl(new TextMessageImpl(message), false));
+        log.info("Controller: added message to model: {}", message);
     }
 
     @Override
-    public void execute(List<String> currency, String period, String algorithm, String output) {
+    public void execute(Request request) {
+        String output = request.getOutput();
+
         switch (output) {
-            case OUTPUT_GRAPH:
-                dataModel.setResponseData(service.getGraphForecast(currency, period, algorithm));
-                break;
             case OUTPUT_LIST:
-                if (currency.size() > 1) {
-                    addMessage(MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST);
-                    break;
-                }
-                dataModel.setResponseData(service.getListForecast(currency.get(0), period, algorithm));
+                dataModel.setResponseData(
+                        service.getListForecast(
+                                request.getCurrencyList().get(0), request.getPeriodOrDate(), request.getAlgorithm())
+                );
+                break;
+            case OUTPUT_GRAPH:
+                dataModel.setResponseData(
+                        service.getTrendForecast(
+                                request.getCurrencyList(), request.getPeriodOrDate(), request.getAlgorithm())
+                );
                 break;
             default:
                 addMessage(MESSAGE_WRONG_OUTPUT + output);
+                break;
         }
-
+        log.info("ControllerImpl execute Request: {}", request);
     }
+
+
 }
 

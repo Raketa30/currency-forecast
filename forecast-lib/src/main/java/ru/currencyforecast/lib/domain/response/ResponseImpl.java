@@ -1,8 +1,10 @@
 package ru.currencyforecast.lib.domain.response;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
+@ToString
 public class ResponseImpl implements Response {
     private final Message message;
     private final boolean isPicture;

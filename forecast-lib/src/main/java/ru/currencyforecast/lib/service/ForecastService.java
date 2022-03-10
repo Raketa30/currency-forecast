@@ -1,7 +1,6 @@
 package ru.currencyforecast.lib.service;
 
 import ru.currencyforecast.lib.domain.CurrencyData;
-import ru.currencyforecast.lib.service.algorithm.Algorithm;
 
 import java.util.List;
 
@@ -32,6 +31,7 @@ public interface ForecastService {
     /**
      * Установка требуемого алгоритма прогноза
      * @param algorithm
+     * @return
      */
-    void setAlgorithm(Algorithm algorithm);
+    boolean setAlgorithm(String algorithm);
 }

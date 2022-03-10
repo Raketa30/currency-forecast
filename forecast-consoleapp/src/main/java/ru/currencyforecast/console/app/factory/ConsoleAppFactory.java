@@ -9,12 +9,11 @@ import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.repository.CurrencyRepository;
 import ru.currencyforecast.lib.repository.Repository;
 import ru.currencyforecast.lib.service.*;
-import ru.currencyforecast.lib.service.algorithm.AverageAlgorithmImpl;
 
 import java.util.Scanner;
 
 /**
- * Фабрика консольного приложения
+ * Р¤Р°Р±СЂРёРєР° РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
  */
 public class ConsoleAppFactory {
     private ConsoleAppFactory() {
@@ -23,7 +22,7 @@ public class ConsoleAppFactory {
     public static ConsoleView getConsoleView() {
         Scanner scanner = new Scanner(System.in);
         Repository repository = new CurrencyRepository();
-        ForecastService forecastService = new ForecastServiceImpl(new AverageAlgorithmImpl());
+        ForecastService forecastService = new ForecastServiceImpl();
         TrendService trendService = new TrendServiceImpl();
         DataModel dataModel = new DataModel();
         Service service = new ServiceImpl(repository, forecastService, trendService);

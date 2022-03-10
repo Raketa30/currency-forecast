@@ -2,6 +2,7 @@ package ru.currencyforecast.lib.cli;
 
 import com.beust.jcommander.Parameter;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -10,8 +11,8 @@ import static ru.currencyforecast.lib.common.Constant.*;
 /**
  * Аргументы приходящие в командной строке, обработанные JCommander
  */
-
 @Getter
+@NoArgsConstructor
 public class Arguments {
     @Parameter(names = {COMMAND_RATE},
             description = "Currency rate for: USD, EUR, TRY, AMD, BGN",

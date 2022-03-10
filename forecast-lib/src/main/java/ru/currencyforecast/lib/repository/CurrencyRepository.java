@@ -2,6 +2,7 @@ package ru.currencyforecast.lib.repository;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.domain.CurrencyData;
 
 import java.io.*;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static ru.currencyforecast.lib.common.Constant.*;
 
+@Slf4j
 public class CurrencyRepository implements Repository {
     private final Map<String, String> currencyUrlsMap;
 
@@ -25,10 +27,20 @@ public class CurrencyRepository implements Repository {
     }
 
     @Override
+    public List<CurrencyData> getAllDataByCdx(String cdx) {
+        if (currencyUrlsMap.containsKey(cdx)) {
+            return getAllData(currencyUrlsMap.get(cdx));
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
     public Optional<CurrencyData> getDataByCdxAndDate(String cdx, String date) {
         if (currencyUrlsMap.containsKey(cdx)) {
             return getDataByDate(currencyUrlsMap.get(cdx), date);
         } else {
+            log.info("CurrencyRepository getDataByCdxAndDate Empty Optional");
             return Optional.empty();
         }
     }
@@ -38,31 +50,9 @@ public class CurrencyRepository implements Repository {
         if (currencyUrlsMap.containsKey(cdx)) {
             return getDataListByDays(currencyUrlsMap.get(cdx), algBaseIndex);
         } else {
+            log.info("CurrencyRepository  getDataByCdxAndLimitByALgBaseIndex Empty List");
             return Collections.emptyList();
         }
-    }
-
-    @Override
-    public List<CurrencyData> getAllDataByCdx(String cdx) {
-        if (currencyUrlsMap.containsKey(cdx)) {
-            return getAllData(currencyUrlsMap.get(cdx));
-        } else {
-            return Collections.emptyList();
-        }
-    }
-
-    private List<CurrencyData> getAllData(String fileDataUrl) {
-        List<CurrencyData> currencyDataList = new ArrayList<>();
-        try (InputStreamReader inputStreamReader = getInputStreamReader(fileDataUrl)) {
-
-            currencyDataList.addAll(
-                    getDataCsvToBean(inputStreamReader)
-                            .parse()
-            );
-        } catch (IOException e) {
-            //todo logger
-        }
-        return currencyDataList;
     }
 
     private List<CurrencyData> getDataListByDays(String fileDataUrl, int days) {
@@ -76,7 +66,7 @@ public class CurrencyRepository implements Repository {
                             .collect(Collectors.toList())
             );
         } catch (IOException e) {
-            //todo logger
+            log.info("CurrencyRepository getDataListByDays IOexception: {}", e.getMessage());
         }
         return currencyDataList;
     }
@@ -89,15 +79,27 @@ public class CurrencyRepository implements Repository {
                     .filter(currencyData -> currencyData.getData().isEqual(localDate))
                     .findFirst();
         } catch (IOException e) {
-            //todo logger
+            log.info("CurrencyRepository getDataByDate IOexception: {}", e.getMessage());
         }
+        log.info("CurrencyRepository getDataByDate Empty Optional");
         return Optional.empty();
+    }
+
+    private List<CurrencyData> getAllData(String fileDataUrl) {
+        List<CurrencyData> currencyDataList = new ArrayList<>();
+        try (InputStreamReader inputStreamReader = getInputStreamReader(fileDataUrl)) {
+            currencyDataList.addAll(getDataCsvToBean(inputStreamReader).parse());
+        } catch (IOException e) {
+            log.info("CurrencyRepository getAllData IOexception: {}", e.getMessage());
+        }
+        return currencyDataList;
     }
 
     private InputStreamReader getInputStreamReader(String fileDataUrl) throws UnsupportedEncodingException, FileNotFoundException {
         return new InputStreamReader(
-                new FileInputStream(Objects.requireNonNull(
-                        CurrencyRepository.class.getClassLoader().getResource(fileDataUrl)).getFile()), CHARSET);
+                new FileInputStream(
+                        Objects.requireNonNull(CurrencyRepository.class.getClassLoader().getResource(fileDataUrl))
+                                .getFile()), CHARSET);
     }
 
     private CsvToBean<CurrencyData> getDataCsvToBean(InputStreamReader inputStreamReader) {

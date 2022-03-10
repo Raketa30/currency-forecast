@@ -1,8 +1,7 @@
 package ru.currencyforecast.console.app.view;
 
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.cli.Commander;
 import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.model.DataModel;
@@ -13,21 +12,21 @@ import java.util.Scanner;
 import static ru.currencyforecast.lib.common.Constant.COMMAND_EXIT;
 
 /**
- * Класс представляющий отображение консольного приложения
+ * РљР»Р°СЃСЃ РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
  */
+@Slf4j
 @AllArgsConstructor
 public class ConsoleView {
-    private static final Logger logger = LoggerFactory.getLogger(ConsoleView.class);
-
     private final DataModel model;
     private final Scanner scanner;
     private final Commander commander;
 
     public void launchConsole() {
+        log.debug("ConsoleView launchConsole");
         while (true) {
             PrintUtil.printLine("Enter your command:");
             String command = scanner.nextLine().toLowerCase();
-            logger.info("Введена команда: {}", command);
+            log.debug("Р’РІРµРґРµРЅР° РєРѕРјР°РЅРґР°: {}", command);
             if (command.equalsIgnoreCase(COMMAND_EXIT)) {
                 return;
             }
@@ -48,7 +47,7 @@ public class ConsoleView {
                 } else {
                     PrintUtil.printLine("Console forecast does not support graph");
                 }
-                logger.info("Ответ получен");
+                log.debug("РћС‚РІРµС‚ РїРѕР»СѓС‡РµРЅ");
                 break;
             }
         }
