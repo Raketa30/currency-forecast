@@ -21,7 +21,7 @@ public class Arguments {
     private String date;
 
     @Parameter(names = COMMAND_ALGORITHM,
-            description = "Rate algorithm: actual, mistic, internet",
+            description = "Rate algorithm: actual, mistic, internet, average",
             required = true)
     private String alg;
 

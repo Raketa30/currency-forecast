@@ -7,7 +7,6 @@ import ru.currencyforecast.lib.controller.Controller;
 import java.util.Objects;
 
 import static ru.currencyforecast.lib.common.Constant.MESSAGE_WRONG_COMMAND;
-import static ru.currencyforecast.lib.common.Constant.OUTPUT_LIST;
 
 public class CommanderImpl implements Commander {
     private final Controller controller;
@@ -26,7 +25,8 @@ public class CommanderImpl implements Commander {
             controller.addMessage(stringBuilder.toString());
         } else {
             if (valid(arguments)) {
-                controller.execute(arguments.getRate(), arguments.getPeriod(), arguments.getAlg(), arguments.getOutput());
+                String periodOrDate = arguments.getPeriod() == null ? arguments.getDate() : arguments.getPeriod();
+                controller.execute(arguments.getRate(), periodOrDate, arguments.getAlg(), arguments.getOutput());
             } else {
                 controller.addMessage(MESSAGE_WRONG_COMMAND);
             }
@@ -56,11 +56,5 @@ public class CommanderImpl implements Commander {
         boolean containsPeriodOrDate = Objects.nonNull(arguments.getPeriod()) || Objects.nonNull(arguments.getDate());
         boolean containsPeriodAndDate = Objects.nonNull(arguments.getPeriod()) && Objects.nonNull(arguments.getDate());
         return containsPeriodOrDate && !containsPeriodAndDate;
-    }
-
-    private boolean validList(Arguments arguments) {
-        boolean currencyRateSize = arguments.getRate().size() == 1;
-        boolean isList = arguments.getOutput().equals(OUTPUT_LIST);
-        return currencyRateSize && isList;
     }
 }

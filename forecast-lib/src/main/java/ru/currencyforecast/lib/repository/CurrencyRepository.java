@@ -4,9 +4,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import ru.currencyforecast.lib.domain.CurrencyData;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -55,8 +53,12 @@ public class CurrencyRepository implements Repository {
 
     private List<CurrencyData> getAllData(String fileDataUrl) {
         List<CurrencyData> currencyDataList = new ArrayList<>();
-        try {
-            readCsvAndGetDataBeans(fileDataUrl).parse();
+        try (InputStreamReader inputStreamReader = getInputStreamReader(fileDataUrl)) {
+
+            currencyDataList.addAll(
+                    getDataCsvToBean(inputStreamReader)
+                            .parse()
+            );
         } catch (IOException e) {
             //todo logger
         }
@@ -65,11 +67,14 @@ public class CurrencyRepository implements Repository {
 
     private List<CurrencyData> getDataListByDays(String fileDataUrl, int days) {
         List<CurrencyData> currencyDataList = new ArrayList<>();
-        try {
-            CsvToBean<CurrencyData> csvToBean = readCsvAndGetDataBeans(fileDataUrl);
-            currencyDataList.addAll(csvToBean.parse().stream()
-                    .limit(days)
-                    .collect(Collectors.toList()));
+        try (InputStreamReader inputStreamReader = getInputStreamReader(fileDataUrl)) {
+            currencyDataList.addAll(
+                    getDataCsvToBean(inputStreamReader)
+                            .parse()
+                            .stream()
+                            .limit(days)
+                            .collect(Collectors.toList())
+            );
         } catch (IOException e) {
             //todo logger
         }
@@ -78,9 +83,9 @@ public class CurrencyRepository implements Repository {
 
     private Optional<CurrencyData> getDataByDate(String fileUrl, String date) {
         LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
-        try {
-            CsvToBean<CurrencyData> csvToBean = readCsvAndGetDataBeans(fileUrl);
-            return csvToBean.stream()
+        try (InputStreamReader inputStreamReader = getInputStreamReader(fileUrl)) {
+            return getDataCsvToBean(inputStreamReader)
+                    .stream()
                     .filter(currencyData -> currencyData.getData().isEqual(localDate))
                     .findFirst();
         } catch (IOException e) {
@@ -89,15 +94,17 @@ public class CurrencyRepository implements Repository {
         return Optional.empty();
     }
 
-    private CsvToBean<CurrencyData> readCsvAndGetDataBeans(String fileDataUrl) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(
-                Objects.requireNonNull(this.getClass().getClassLoader().getResource(fileDataUrl)).getFile()), CHARSET
-        );
-        CsvToBean<CurrencyData> csvToBean = new CsvToBeanBuilder<CurrencyData>(inputStreamReader)
+    private InputStreamReader getInputStreamReader(String fileDataUrl) throws UnsupportedEncodingException, FileNotFoundException {
+        return new InputStreamReader(
+                new FileInputStream(Objects.requireNonNull(
+                        CurrencyRepository.class.getClassLoader().getResource(fileDataUrl)).getFile()), CHARSET);
+    }
+
+    private CsvToBean<CurrencyData> getDataCsvToBean(InputStreamReader inputStreamReader) {
+        return new CsvToBeanBuilder<CurrencyData>(inputStreamReader)
                 .withType(CurrencyData.class)
                 .withSeparator(CSV_DELIMETER)
                 .build();
-        inputStreamReader.close();
-        return csvToBean;
     }
 }
+

@@ -77,8 +77,8 @@
         </plugins>
         <resources>
             <resource>
-                <directory>forecast-app/src/main/resources</directory>
-                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
             </resource>
         </resources>
     </build>
