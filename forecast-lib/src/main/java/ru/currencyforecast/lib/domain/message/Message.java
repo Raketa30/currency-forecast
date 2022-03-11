@@ -1,4 +1,4 @@
-package ru.currencyforecast.lib.domain.response;
+package ru.currencyforecast.lib.domain.message;
 
 /**
  * »нтерфейс представл€ющий абстрактное сообщение

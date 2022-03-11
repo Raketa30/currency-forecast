@@ -12,6 +12,7 @@ public class Constant {
     public static final String TRY_CSV_LINK = "csv_data/TRY_F01_02_2005_T05_03_2022.csv";
     public static final String AMD_CSV_LINK = "csv_data/AMD_F01_02_2005_T05_03_2022.csv";
     public static final String BGN_CSV_LINK = "csv_data/BGN_F01_02_2005_T05_03_2022.csv";
+    public static final String PLOT_IMAGE_SAVING_LINK = "forecast-lib/temp-trends/trend.jpg";
     //for csv
     public static final String CSV_HEADER_NOMINAL = "nominal";
     public static final String CSV_HEADER_DATE = "data";
@@ -66,6 +67,7 @@ public class Constant {
     public static final String MESSAGE_PERIOD_OR_DATE = "Wrong period or date";
     public static final String MESSAGE_EMPTY_OUTPUT = "Empty output";
     public static final String MESSAGE_EMPTY_ALG = "Empty algorihm";
+    public static final String MESSAGE_WRONG_IMAGE ="Wrong image: ";
 
 
     private Constant() {

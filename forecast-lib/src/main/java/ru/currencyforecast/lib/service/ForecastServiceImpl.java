@@ -15,6 +15,7 @@ import static ru.currencyforecast.lib.common.Constant.*;
 
 public class ForecastServiceImpl implements ForecastService {
     private final Map<String, Algorithm> algorithmMap;
+    private final Map<String, Integer> periodIndexMap;
     private Algorithm algorithm;
 
     public ForecastServiceImpl() {
@@ -23,6 +24,11 @@ public class ForecastServiceImpl implements ForecastService {
         this.algorithmMap.put(ALG_AVG, new AverageAlgorithmImpl());
         this.algorithmMap.put(ALG_MISTIC, new MisticAlgorithmImpl());
         this.algorithmMap.put(ALG_INTERNET, new InternetAlgorithmImpl());
+
+        this.periodIndexMap = new HashMap<>();
+        this.periodIndexMap.put(FORECAST_DEPTH_TOMMOROW, FORECAST_DEPTH_TOMORROW_INDEX);
+        this.periodIndexMap.put(FORECAST_DEPTH_WEEK, FORECAST_DEPTH_WEEK_INDEX);
+        this.periodIndexMap.put(FORECAST_DEPTH_MONTH, FORECAST_DEPTH_MONTH_INDEX);
     }
 
     @Override
@@ -41,16 +47,10 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public List<CurrencyData> getForecastForPeriod(List<CurrencyData> incomingDataList, String period) {
-        switch (period) {
-            case FORECAST_DEPTH_TOMMOROW:
-                return algorithm.getForcastForPeriod(incomingDataList, FORECAST_DEPTH_TOMORROW_INDEX);
-            case FORECAST_DEPTH_WEEK:
-                return algorithm.getForcastForPeriod(incomingDataList, FORECAST_DEPTH_WEEK_INDEX);
-            case FORECAST_DEPTH_MONTH:
-                return algorithm.getForcastForPeriod(incomingDataList, FORECAST_DEPTH_MONTH_INDEX);
-            default:
-                return Collections.emptyList();
+        if (periodIndexMap.containsKey(period)) {
+            return algorithm.getForcastForPeriod(incomingDataList, periodIndexMap.get(period));
         }
+        return Collections.emptyList();
     }
 
     @Override

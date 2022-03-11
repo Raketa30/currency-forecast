@@ -2,6 +2,7 @@ package ru.currencyforecast.lib.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;
+import ru.currencyforecast.lib.domain.message.Message;
 
 @AllArgsConstructor
 @ToString
@@ -16,6 +17,6 @@ public class ResponseImpl implements Response {
 
     @Override
     public boolean isPicture() {
-        return false;
+        return this.isPicture;
     }
 }

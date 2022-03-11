@@ -33,6 +33,7 @@ public class CommanderImpl implements Commander {
             }
         } catch (RuntimeException e) {
             log.info("CommanderImpl RuntimeException: {}",e.getMessage());
+            e.printStackTrace();
             controller.addMessage(MESSAGE_WRONG_COMMAND);
         }
     }

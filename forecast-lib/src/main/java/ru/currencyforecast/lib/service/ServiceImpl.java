@@ -1,29 +1,32 @@
 package ru.currencyforecast.lib.service;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.domain.CurrencyData;
-import ru.currencyforecast.lib.domain.response.GraphMessageImpl;
+import ru.currencyforecast.lib.domain.message.ImageMessageImpl;
+import ru.currencyforecast.lib.domain.message.TextMessageImpl;
 import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.domain.response.ResponseImpl;
-import ru.currencyforecast.lib.domain.response.TextMessageImpl;
 import ru.currencyforecast.lib.repository.Repository;
 
-import java.nio.file.Path;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static ru.currencyforecast.lib.common.Constant.MESSAGE_WRONG_ALG;
+import static ru.currencyforecast.lib.common.Constant.MESSAGE_WRONG_IMAGE;
 
+@Slf4j
+@AllArgsConstructor
 public class ServiceImpl implements Service {
     private final Repository repository;
     private final ForecastService forecastService;
     private final TrendService trendService;
-
-    public ServiceImpl(Repository repository, ForecastService forecastService, TrendService trendService) {
-        this.repository = repository;
-        this.forecastService = forecastService;
-        this.trendService = trendService;
-    }
 
     @Override
     public Response getListForecast(String currency, String period, String algoritm) {
@@ -40,10 +43,10 @@ public class ServiceImpl implements Service {
     public Response getTrendForecast(List<String> currencyList, String period, String algorithm) {
         if (forecastService.setAlgorithm(algorithm)) {
             Map<String, List<CurrencyData>> currencyDataMap = getMultiCurrencyMap(currencyList, period);
-            return prepareImageResponse(trendService.getForecastTrend(currencyDataMap));
-        } else {
-            return prepareTextResponse(MESSAGE_WRONG_ALG + algorithm);
+            Optional<File> forecastTrend = trendService.getForecastTrend(currencyDataMap);
+            return forecastTrend.map(this::prepareImageResponse).orElseGet(() -> prepareTextResponse(MESSAGE_WRONG_IMAGE));
         }
+            return prepareTextResponse(MESSAGE_WRONG_ALG + algorithm);
     }
 
     private Map<String, List<CurrencyData>> getMultiCurrencyMap(List<String> currency, String period) {
@@ -56,8 +59,15 @@ public class ServiceImpl implements Service {
         return currencyDataMap;
     }
 
-    private Response prepareImageResponse(Path forecastTrend) {
-        return new ResponseImpl(new GraphMessageImpl(forecastTrend), true);
+    private Response prepareImageResponse(File forecastTrend) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(forecastTrend);
+            return new ResponseImpl(new ImageMessageImpl(bufferedImage), true);
+        } catch (IOException e) {
+            log.info("ServiceImpl prepareImageResponse exception - {}", e.getMessage());
+            e.printStackTrace();
+        }
+        return prepareTextResponse(MESSAGE_WRONG_IMAGE + forecastTrend.getPath());
     }
 
     private List<CurrencyData> getDataByAlgorithm(String currency) {

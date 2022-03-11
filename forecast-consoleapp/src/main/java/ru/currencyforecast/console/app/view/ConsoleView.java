@@ -40,14 +40,14 @@ public class ConsoleView {
 
     private void printResult() {
         while (true) {
-            if (!model.isEmpty()) {
+            if (model.isNotEmpty()) {
                 Response response = model.getResponseData();
-                if (!response.isPicture()) {
-                    PrintUtil.printLine((String) response.getMessage().getMessageData());
-                } else {
+                if (response.isPicture()) {
                     PrintUtil.printLine("Console forecast does not support graph");
+                } else {
+                    PrintUtil.printLine((String) response.getMessage().getMessageData());
                 }
-                log.debug("Ответ получен");
+                log.debug("ConsoleView printResult Response: {}", response.getClass().getName());
                 break;
             }
         }

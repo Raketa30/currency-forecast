@@ -1,4 +1,4 @@
-package ru.currencyforecast.lib.domain.response;
+package ru.currencyforecast.lib.domain.message;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;

@@ -23,7 +23,7 @@ public class DataModel {
         log.debug("DataModel setResponseData response: {}", response.toString());
     }
 
-    public boolean isEmpty() {
-        return Objects.isNull(responseData);
+    public boolean isNotEmpty() {
+        return !Objects.isNull(responseData);
     }
 }

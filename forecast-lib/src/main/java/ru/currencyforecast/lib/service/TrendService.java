@@ -2,9 +2,10 @@ package ru.currencyforecast.lib.service;
 
 import ru.currencyforecast.lib.domain.CurrencyData;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Сервис обработки данных и создания трендов
@@ -14,7 +15,7 @@ public interface TrendService {
      * Получение тренда на основе входящих валют
      *
      * @param forecast - карта валют и их данных
-     * @return ссылку на сохраненное изображение
+     * @return Опциональный файл с изображением
      */
-    Path getForecastTrend(Map<String, List<CurrencyData>> forecast);
+    Optional<File> getForecastTrend(Map<String, List<CurrencyData>> forecast);
 }
