@@ -2,6 +2,7 @@ package ru.currencyforecast.lib.service;
 
 import ru.currencyforecast.lib.domain.CurrencyData;
 import ru.currencyforecast.lib.service.algorithm.*;
+import ru.currencyforecast.lib.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,9 +39,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public List<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, String date) {
-        long between = ChronoUnit.DAYS.between(
-                LocalDate.now(), LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN))
-        );
+        long between = DateTimeUtil.daysBetweenFromNowToDate(date);
         List<CurrencyData> periodList = algorithm.getForcastForPeriod(incomingDataList, (int) between);
         return Collections.singletonList(periodList.get(periodList.size() - 1));
     }

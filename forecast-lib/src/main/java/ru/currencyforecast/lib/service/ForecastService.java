@@ -33,7 +33,7 @@ public interface ForecastService {
      * Установка требуемого алгоритма прогноза
      *
      * @param algorithm
-     * @return
+     * @return false если отсутствует переданный алгоритм
      */
     boolean setAlgorithm(String algorithm);
 }

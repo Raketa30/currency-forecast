@@ -11,6 +11,7 @@ import ru.currencyforecast.lib.domain.response.ForecastResponse;
 import ru.currencyforecast.lib.domain.response.Response;
 import ru.currencyforecast.lib.domain.response.ResponseType;
 import ru.currencyforecast.lib.repository.Repository;
+import ru.currencyforecast.lib.util.DateTimeUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -47,7 +48,7 @@ public class ServiceImpl implements Service {
         String algoritm = request.getAlgorithm();
         if (forecastService.setAlgorithm(algoritm)) {
             List<CurrencyData> dataByAlgorithm = getDataByAlgorithm(request.getCurrencyList().get(0));
-            List<CurrencyData> forecast = forecastService.getForecastForPeriod(dataByAlgorithm, request.getPeriodOrDate());
+            List<CurrencyData> forecast = getCurrencyDataListByPeriodOrDate(request, dataByAlgorithm);
             return new ForecastResponse<>(ResponseType.DATA, new DataMessage(forecast));
         } else {
             return prepareTextResponse(MESSAGE_WRONG_ALG + algoritm);
@@ -73,12 +74,20 @@ public class ServiceImpl implements Service {
         return repository.getDataByCdxAndLimitByALgBaseIndex(currency, algBaseIndex);
     }
 
+    private List<CurrencyData> getCurrencyDataListByPeriodOrDate(Request request, List<CurrencyData> dataByAlgorithm) {
+        String periodOrDate = request.getPeriodOrDate();
+        if (DateTimeUtil.isDate(periodOrDate)) {
+            return forecastService.getForecastForDate(dataByAlgorithm, periodOrDate);
+        }
+        return forecastService.getForecastForPeriod(dataByAlgorithm, periodOrDate);
+    }
+
     private Map<String, List<CurrencyData>> getMultiCurrencyMap(List<String> currency, String period) {
         Map<String, List<CurrencyData>> currencyDataMap = new HashMap<>();
         for (String cur : currency) {
-            List<CurrencyData> dataByAlgorithm = getDataByAlgorithm(cur);
-            List<CurrencyData> currencyDataList = forecastService.getForecastForPeriod(dataByAlgorithm, period);
-            currencyDataMap.put(cur, currencyDataList);
+            List<CurrencyData> dataListByAlgorithm = getDataByAlgorithm(cur);
+            List<CurrencyData> processedDataList = forecastService.getForecastForPeriod(dataListByAlgorithm, period);
+            currencyDataMap.put(cur, processedDataList);
         }
         return currencyDataMap;
     }
