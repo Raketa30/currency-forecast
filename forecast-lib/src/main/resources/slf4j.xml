@@ -22,7 +22,7 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS}  %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -55,7 +55,7 @@
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="DEBUG" />
-        <appender-ref ref="INFO" />
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="INFO"/>
     </root>
 </configuration>

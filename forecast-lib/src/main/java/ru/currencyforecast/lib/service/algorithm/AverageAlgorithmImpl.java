@@ -13,6 +13,11 @@ import static ru.currencyforecast.lib.common.Constant.ALG_AVG_BASE;
  */
 public class AverageAlgorithmImpl implements Algorithm {
     @Override
+    public int getBaseDaysNumber() {
+        return ALG_AVG_BASE;
+    }
+
+    @Override
     public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
         List<CurrencyData> processList = new ArrayList<>(dataListForAnalisys);
         List<CurrencyData> weekCurrencyDataList = new ArrayList<>();
@@ -27,11 +32,6 @@ public class AverageAlgorithmImpl implements Algorithm {
             weekCurrencyDataList.add(currencyData);
         }
         return weekCurrencyDataList;
-    }
-
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_AVG_BASE;
     }
 
     private String getDataTitleFormList(List<CurrencyData> currencyDataList) {

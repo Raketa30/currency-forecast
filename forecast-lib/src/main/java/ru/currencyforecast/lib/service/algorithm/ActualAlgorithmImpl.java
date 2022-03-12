@@ -15,6 +15,11 @@ import static ru.currencyforecast.lib.common.Constant.ALG_ACTUAL_BASE;
  */
 public class ActualAlgorithmImpl implements Algorithm {
     @Override
+    public int getBaseDaysNumber() {
+        return ALG_ACTUAL_BASE;
+    }
+
+    @Override
     public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
         List<CurrencyData> processList = new ArrayList<>(dataListForAnalisys);
         List<CurrencyData> resultList = new ArrayList<>();
@@ -32,10 +37,5 @@ public class ActualAlgorithmImpl implements Algorithm {
 
     private int getCurrencyNominal(List<CurrencyData> dataFromRepository) {
         return dataFromRepository.get(0).getNominal();
-    }
-
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_ACTUAL_BASE;
     }
 }

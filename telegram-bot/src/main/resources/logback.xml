@@ -45,7 +45,7 @@
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="DEBUG" />
-        <appender-ref ref="INFO" />
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="INFO"/>
     </root>
 </configuration>

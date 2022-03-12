@@ -15,21 +15,23 @@ public interface ForecastService {
 
     /**
      * Получение прогноза для определенной даты
+     *
      * @param incomingDataList - входящий список данных для анализа
-     * @param date - конкретная дата
+     * @param date             - конкретная дата
      * @return список спрогнозированных данных
      */
     List<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, String date);
 
     /**
      * @param incomingDataList - входящий список данных для анализа
-     * @param period - требуемы период прогноза
+     * @param period           - требуемы период прогноза
      * @return список спрогнозированных данных
      */
     List<CurrencyData> getForecastForPeriod(List<CurrencyData> incomingDataList, String period);
 
     /**
      * Установка требуемого алгоритма прогноза
+     *
      * @param algorithm
      * @return
      */

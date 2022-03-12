@@ -8,13 +8,15 @@ import ru.currencyforecast.lib.domain.Request;
 public interface Controller {
     /**
      * передача сообщения в Response
+     *
      * @param message - текст сообщения
      */
     void addMessage(String message);
 
     /**
      * Непосредственное выполнение комманды с параметрами:
-        @param request - параметры запроса
+     *
+     * @param request - параметры запроса
      */
     void execute(Request request);
 }

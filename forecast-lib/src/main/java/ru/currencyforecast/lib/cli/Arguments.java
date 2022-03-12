@@ -33,8 +33,7 @@ public class Arguments {
     private String alg;
 
     @Parameter(names = COMMAND_OUTPUT,
-            description = "Output format: list or graph",
-            required = true)
+            description = "Output format: list or graph")
     private String output;
 
     @Parameter(names = COMMAND_HELP,

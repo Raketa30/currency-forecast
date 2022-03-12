@@ -11,19 +11,19 @@ import java.util.Objects;
 public class DataModel {
     private ThreadLocal<Response> responseData;
 
-    public Response getResponseData() {
+    public Response getResponse() {
         Response response = responseData.get();
         responseData.remove();
         return response;
+    }
+
+    public boolean isNotEmpty() {
+        return !Objects.isNull(responseData);
     }
 
     public void setResponseData(Response response) {
         this.responseData = new ThreadLocal<>();
         responseData.set(response);
         log.debug("DataModel setResponseData response: {}", response.toString());
-    }
-
-    public boolean isNotEmpty() {
-        return !Objects.isNull(responseData);
     }
 }

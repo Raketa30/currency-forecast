@@ -67,8 +67,8 @@ public class Constant {
     public static final String MESSAGE_PERIOD_OR_DATE = "Wrong period or date";
     public static final String MESSAGE_EMPTY_OUTPUT = "Empty output";
     public static final String MESSAGE_EMPTY_ALG = "Empty algorihm";
-    public static final String MESSAGE_WRONG_IMAGE ="Wrong image: ";
-
+    public static final String MESSAGE_WRONG_IMAGE = "Wrong image: ";
+    public static final String MESSAGE_DATE_WITH_OUTPUT = "Command -date not required -output";
 
     private Constant() {
     }

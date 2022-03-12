@@ -1,13 +1,12 @@
 package ru.currencyforecast.lib.domain.response;
 
-import ru.currencyforecast.lib.domain.message.Message;
+import ru.currencyforecast.lib.domain.message.AbstractMessage;
 
 /**
- * »нтерфейс представл€ющий ответ, содержащий абстрактное сообщение и флаг содержани€ картинки
- * требуютс€ улучшение с помощью дженериков
+ * »нтерфейс представл€ющий ответ, содержащий абстрактное сообщение и тип ответа
  */
 public interface Response {
-    Message getMessage();
+    <T> AbstractMessage<T> getMessage();
 
-    boolean isPicture();
+    ResponseType getType();
 }

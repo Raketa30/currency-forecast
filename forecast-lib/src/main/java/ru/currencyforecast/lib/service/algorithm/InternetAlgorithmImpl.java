@@ -12,12 +12,12 @@ import static ru.currencyforecast.lib.common.Constant.ALG_INTERNET_BASE;
  */
 public class InternetAlgorithmImpl implements Algorithm {
     @Override
-    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
-        return null;
+    public int getBaseDaysNumber() {
+        return ALG_INTERNET_BASE;
     }
 
     @Override
-    public int getBaseDaysNumber() {
-        return ALG_INTERNET_BASE;
+    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
+        return null;
     }
 }

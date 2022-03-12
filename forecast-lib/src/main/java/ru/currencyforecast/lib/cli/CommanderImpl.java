@@ -27,14 +27,12 @@ public class CommanderImpl implements Commander {
                 commander.getUsageFormatter().usage(stringBuilder);
                 controller.addMessage(stringBuilder.toString());
             } else {
-                if (valid(arguments)) {
-                    controller.execute(buildRequest(arguments));
-                }
+                controller.execute(buildRequest(arguments));
             }
         } catch (RuntimeException e) {
-            log.info("CommanderImpl RuntimeException: {}",e.getMessage());
+            log.info("CommanderImpl RuntimeException: {}", e.getMessage());
             e.printStackTrace();
-            controller.addMessage(MESSAGE_WRONG_COMMAND);
+            controller.addMessage(MESSAGE_WRONG_COMMAND + e.getMessage());
         }
     }
 
@@ -50,55 +48,40 @@ public class CommanderImpl implements Commander {
         return arguments;
     }
 
-    private boolean valid(Arguments arguments) {
-        if (isContainsPeriodOrDate(arguments) && isContainsOutput(arguments) && isContainsAlg(arguments)) {
-            boolean containsAlg = isContainsAlg(arguments);
-            boolean correctRate = isCorrectRateCurrency(arguments);
-            boolean singleRateAndList = isCorrectRateAndOutput(arguments);
-            return correctRate
-                    && containsAlg
-                    && singleRateAndList;
-        }
-        log.debug("CommanderImpl arguments not valid");
-        return false;
-    }
-
     private Request buildRequest(Arguments arguments) {
+        if (!isValidParams(arguments)) {
+            log.info("CommanderImpl buildRequest: arguments not valid");
+            throw new IllegalArgumentException("arguments not valid");
+        }
         String periodOrDate = arguments.getDate() != null ? arguments.getDate() : arguments.getPeriod();
+        String output = Objects.isNull(arguments.getOutput()) ? OUTPUT_LIST : arguments.getOutput();
         return Request.builder()
                 .currencyList(arguments.getRate())
                 .periodOrDate(periodOrDate)
                 .algorithm(arguments.getAlg())
-                .output(arguments.getOutput())
+                .output(output)
                 .build();
     }
 
-    private boolean isContainsPeriodOrDate(Arguments arguments) {
-        boolean containsPeriodOrDate = Objects.nonNull(arguments.getPeriod()) || Objects.nonNull(arguments.getDate());
-        boolean containsPeriodAndDate = Objects.nonNull(arguments.getPeriod()) && Objects.nonNull(arguments.getDate());
-        if (containsPeriodAndDate) {
-            controller.addMessage(MESSAGE_PERIOD_OR_DATE);
-            return false;
-        }
-        return containsPeriodOrDate;
+    /**
+     * Валидация аргументов коммандной строки
+     *
+     * @param arguments - аргументы командной строки
+     */
+    private boolean isValidParams(Arguments arguments) {
+        return isCorrectRateCurrency(arguments) &&
+                isContainsPeriodOrDate(arguments) &&
+                isContainsAlg(arguments) &&
+                isValidDateAndOutput(arguments) &&
+                isValidRateAndOutput(arguments);
     }
 
-    private boolean isContainsOutput(Arguments arguments) {
-        boolean hasOutput = Objects.nonNull(arguments.getOutput());
-        if (!hasOutput) {
-            controller.addMessage(MESSAGE_EMPTY_OUTPUT);
-        }
-        return hasOutput;
-    }
-
-    private boolean isContainsAlg(Arguments arguments) {
-        boolean hasAlg = Objects.nonNull(arguments.getAlg());
-        if (!hasAlg) {
-            controller.addMessage(MESSAGE_EMPTY_OUTPUT);
-        }
-        return hasAlg;
-    }
-
+    /**
+     * проверка валидности списка валют
+     *
+     * @param arguments - аргументы командной строки
+     * @return false если аргументы не содержат списка валюты или при большем размере этого списка
+     */
     private boolean isCorrectRateCurrency(Arguments arguments) {
         List<String> rate = arguments.getRate();
         if (Objects.isNull(rate)) {
@@ -111,14 +94,65 @@ public class CommanderImpl implements Commander {
         return true;
     }
 
-    private boolean isCorrectRateAndOutput(Arguments arguments) {
-        int size = arguments.getRate().size();
-        String output = arguments.getOutput();
-        boolean correctRateAndOutput = (size == 1 && output.equals(OUTPUT_LIST)) ^
-                (size >= 1 && output.equals(OUTPUT_GRAPH));
-        if (!correctRateAndOutput) {
-            controller.addMessage(MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST);
+    /**
+     * Период или дата
+     *
+     * @param arguments - аргументы командной строки
+     * @return false если аргументы содержат period и date, или не содержит вовсе
+     */
+    private boolean isContainsPeriodOrDate(Arguments arguments) {
+        boolean containsPeriodXORDate = Objects.nonNull(arguments.getPeriod()) ^ Objects.nonNull(arguments.getDate());
+        if (!containsPeriodXORDate) {
+            controller.addMessage(MESSAGE_PERIOD_OR_DATE);
+            return false;
         }
-        return correctRateAndOutput;
+        return true;
     }
+
+    /**
+     * Наличие алгоритма
+     *
+     * @param arguments - аргументы командной строки
+     * @return false если аргументы не содержат алгоритма
+     */
+    private boolean isContainsAlg(Arguments arguments) {
+        boolean hasAlg = Objects.isNull(arguments.getAlg());
+        if (hasAlg) {
+            controller.addMessage(MESSAGE_EMPTY_ALG);
+        }
+        return true;
+    }
+
+    /**
+     * Отсутствие комманды -output при команде -date
+     *
+     * @param arguments - аргументы командной строки
+     * @return false если аргументы содержат date и output команды.
+     */
+    private boolean isValidDateAndOutput(Arguments arguments) {
+        boolean dateAndOutput = Objects.nonNull(arguments.getDate()) && Objects.nonNull(arguments.getOutput());
+        if (dateAndOutput) {
+            controller.addMessage(MESSAGE_DATE_WITH_OUTPUT);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Мультивалютность и выход
+     *
+     * @param arguments - аргументы командной строки
+     * @return false Если аргументы содержат список с больше чем одной валютой и output = list.
+     */
+    private boolean isValidRateAndOutput(Arguments arguments) {
+        boolean isOutputListAndMultirate = Objects.nonNull(arguments.getOutput()) &&
+                arguments.getOutput().equals(OUTPUT_LIST) && arguments.getRate().size() > 1;
+        if (isOutputListAndMultirate) {
+            controller.addMessage(MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST);
+            return false;
+        }
+        return true;
+    }
+
+
 }

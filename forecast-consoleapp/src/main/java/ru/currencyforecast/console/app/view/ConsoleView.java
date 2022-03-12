@@ -3,10 +3,13 @@ package ru.currencyforecast.console.app.view;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.cli.Commander;
+import ru.currencyforecast.lib.domain.CurrencyData;
 import ru.currencyforecast.lib.domain.response.Response;
+import ru.currencyforecast.lib.domain.response.ResponseType;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.util.PrintUtil;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static ru.currencyforecast.lib.common.Constant.COMMAND_EXIT;
@@ -41,11 +44,14 @@ public class ConsoleView {
     private void printResult() {
         while (true) {
             if (model.isNotEmpty()) {
-                Response response = model.getResponseData();
-                if (response.isPicture()) {
+                Response response = model.getResponse();
+                ResponseType type = response.getType();
+                if (type == ResponseType.IMAGE) {
                     PrintUtil.printLine("Console forecast does not support graph");
+                } else if (type == ResponseType.DATA) {
+                    PrintUtil.printDataList((List<CurrencyData>) response.getMessage().getData());
                 } else {
-                    PrintUtil.printLine((String) response.getMessage().getMessageData());
+                    PrintUtil.printLine((String) response.getMessage().getData());
                 }
                 log.debug("ConsoleView printResult Response: {}", response.getClass().getName());
                 break;

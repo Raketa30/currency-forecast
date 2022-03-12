@@ -7,11 +7,11 @@ import java.awt.image.BufferedImage;
 
 @AllArgsConstructor
 @ToString
-public class ImageMessageImpl implements Message {
-    private final BufferedImage file;
+public class ImageMessage implements AbstractMessage<BufferedImage> {
+    private final BufferedImage bufferedImage;
 
     @Override
-    public BufferedImage getMessageData() {
-        return file;
+    public BufferedImage getData() {
+        return bufferedImage;
     }
 }

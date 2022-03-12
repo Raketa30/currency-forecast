@@ -5,11 +5,11 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class TextMessageImpl implements Message {
+public class TextMessage implements AbstractMessage<String> {
     private final String text;
 
     @Override
-    public String getMessageData() {
+    public String getData() {
         return text;
     }
 }
