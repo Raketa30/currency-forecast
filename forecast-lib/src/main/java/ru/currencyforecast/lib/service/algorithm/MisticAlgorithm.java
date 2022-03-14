@@ -13,10 +13,10 @@ import static ru.currencyforecast.lib.common.Constant.ALG_MISTIC_BASE;
  * Последующие даты рассчитываются рекуррентно по формуле -
  * значение предыдущей даты  + случайное число от -10% до +10% от значения предыдущей даты.
  */
-public class MisticAlgorithmImpl implements Algorithm {
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_MISTIC_BASE;
+public class MisticAlgorithm extends Algorithm {
+
+    public MisticAlgorithm() {
+        super(ALG_MISTIC_BASE);
     }
 
     @Override

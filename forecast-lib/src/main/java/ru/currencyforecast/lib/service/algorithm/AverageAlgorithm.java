@@ -11,10 +11,10 @@ import static ru.currencyforecast.lib.common.Constant.ALG_AVG_BASE;
 /**
  * Алгоритм по среднему значению за период
  */
-public class AverageAlgorithmImpl implements Algorithm {
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_AVG_BASE;
+public class AverageAlgorithm extends Algorithm {
+
+    public AverageAlgorithm() {
+        super(ALG_AVG_BASE);
     }
 
     @Override

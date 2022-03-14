@@ -17,10 +17,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static ru.currencyforecast.lib.common.Constant.*;
 
@@ -34,42 +31,38 @@ public class ServiceImpl implements Service {
     @Override
     public Response getForecast(Request request) {
         String output = request.getOutput();
-        switch (output) {
-            case OUTPUT_LIST:
-                return getListForecast(request);
-            case OUTPUT_GRAPH:
-                return getTrendForecast(request);
-            default:
-                return prepareTextResponse(MESSAGE_WRONG_OUTPUT + output);
-        }
-    }
-
-    public Response getListForecast(Request request) {
         String algoritm = request.getAlgorithm();
         if (forecastService.setAlgorithm(algoritm)) {
-            List<CurrencyData> dataByAlgorithm = getDataByAlgorithm(request.getCurrencyList().get(0));
-            List<CurrencyData> forecast = getCurrencyDataListByPeriodOrDate(request, dataByAlgorithm);
-            return new ForecastResponse<>(ResponseType.DATA, new DataMessage(forecast));
+            switch (output) {
+                case OUTPUT_LIST:
+                    return getListForecast(request);
+                case OUTPUT_GRAPH:
+                    return getTrendForecast(request);
+                default:
+                    return prepareTextResponse(MESSAGE_WRONG_OUTPUT + output);
+            }
         } else {
             return prepareTextResponse(MESSAGE_WRONG_ALG + algoritm);
         }
     }
 
+    public Response getListForecast(Request request) {
+        List<CurrencyData> dataByAlgorithm = getDataListByAlgorithmIndex(request.getCurrencyList().get(0));
+        List<CurrencyData> forecast = getCurrencyDataListByPeriodOrDate(request, dataByAlgorithm);
+        return new ForecastResponse<>(ResponseType.DATA, new DataMessage(forecast));
+    }
+
     public Response getTrendForecast(Request request) {
-        String algorithm = request.getAlgorithm();
-        if (forecastService.setAlgorithm(algorithm)) {
-            Map<String, List<CurrencyData>> currencyDataMap = getMultiCurrencyMap(request.getCurrencyList(), request.getPeriodOrDate());
-            Optional<File> forecastTrend = trendService.getForecastTrend(currencyDataMap);
-            return forecastTrend.map(this::prepareImageResponse).orElseGet(() -> prepareTextResponse(MESSAGE_WRONG_IMAGE));
-        }
-        return prepareTextResponse(MESSAGE_WRONG_ALG + algorithm);
+        Map<String, List<CurrencyData>> currencyDataMap = getMultiCurrencyMap(request.getCurrencyList(), request.getPeriodOrDate());
+        Optional<File> forecastTrend = trendService.getForecastTrend(currencyDataMap);
+        return forecastTrend.map(this::prepareImageResponse).orElseGet(() -> prepareTextResponse(MESSAGE_WRONG_IMAGE));
     }
 
     private Response prepareTextResponse(String message) {
         return new ForecastResponse<>(ResponseType.TEXT, new TextMessage(message));
     }
 
-    private List<CurrencyData> getDataByAlgorithm(String currency) {
+    private List<CurrencyData> getDataListByAlgorithmIndex(String currency) {
         final int algBaseIndex = forecastService.getAlgBaseIndex();
         return repository.getDataByCdxAndLimitByALgBaseIndex(currency, algBaseIndex);
     }
@@ -77,7 +70,8 @@ public class ServiceImpl implements Service {
     private List<CurrencyData> getCurrencyDataListByPeriodOrDate(Request request, List<CurrencyData> dataByAlgorithm) {
         String periodOrDate = request.getPeriodOrDate();
         if (DateTimeUtil.isDate(periodOrDate)) {
-            return forecastService.getForecastForDate(dataByAlgorithm, periodOrDate);
+            Optional<CurrencyData> forecastForDate = forecastService.getForecastForDate(dataByAlgorithm, DateTimeUtil.getLocalDate(periodOrDate));
+            return forecastForDate.map(Collections::singletonList).orElse(Collections.emptyList());
         }
         return forecastService.getForecastForPeriod(dataByAlgorithm, periodOrDate);
     }
@@ -85,7 +79,7 @@ public class ServiceImpl implements Service {
     private Map<String, List<CurrencyData>> getMultiCurrencyMap(List<String> currency, String period) {
         Map<String, List<CurrencyData>> currencyDataMap = new HashMap<>();
         for (String cur : currency) {
-            List<CurrencyData> dataListByAlgorithm = getDataByAlgorithm(cur);
+            List<CurrencyData> dataListByAlgorithm = getDataListByAlgorithmIndex(cur);
             List<CurrencyData> processedDataList = forecastService.getForecastForPeriod(dataListByAlgorithm, period);
             currencyDataMap.put(cur, processedDataList);
         }
@@ -98,7 +92,6 @@ public class ServiceImpl implements Service {
             return new ForecastResponse<>(ResponseType.IMAGE, new ImageMessage(bufferedImage));
         } catch (IOException e) {
             log.info("ServiceImpl prepareImageResponse exception - {}", e.getMessage());
-            e.printStackTrace();
         }
         return prepareTextResponse(MESSAGE_WRONG_IMAGE + forecastTrend.getPath());
     }

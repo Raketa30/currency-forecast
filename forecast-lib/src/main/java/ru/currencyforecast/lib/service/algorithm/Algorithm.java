@@ -7,18 +7,28 @@ import java.util.List;
 /**
  * Алгоритм прогноза
  */
-public interface Algorithm {
+public abstract class Algorithm {
     /**
-     * @return количество предыдущих записей, требующихся для прогноза
+     * количество предыдущих записей, требующихся для прогноза
      */
-    int getBaseDaysNumber();
+    private final int baseDaysIndex;
+
+    protected Algorithm(int baseDaysIndex) {
+        this.baseDaysIndex = baseDaysIndex;
+    }
+
+    public int getBaseDaysNumber() {
+        return baseDaysIndex;
+    }
 
     /**
      * Прогноз для указанного периода в днях
      *
      * @param dataListForAnalisys - входящий список данных
-     * @param periodDays          - количество прогнозиемых дней
+     * @param periodDays          - прогнозируемый период
      * @return список с прогнозом на количсетво дней
      */
-    List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays);
+    public abstract List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays);
 }
+
+

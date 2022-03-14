@@ -13,14 +13,18 @@ import static ru.currencyforecast.lib.common.Constant.ALG_ACTUAL_BASE;
  * то есть прогноз на 25.12.2022 будет считаться как прогноз 25.12.2020 + 25.12.2019.
  * Если число сильно впереди и нет данных за год - кидать ошибку.
  */
-public class ActualAlgorithmImpl implements Algorithm {
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_ACTUAL_BASE;
+public class ActualAlgorithm extends Algorithm {
+
+    public ActualAlgorithm() {
+        super(ALG_ACTUAL_BASE);
     }
 
     @Override
     public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
+        return null;
+    }
+
+    public List<CurrencyData> getForcastForPeriodDays(List<CurrencyData> dataListForAnalisys, int periodDays) {
         List<CurrencyData> processList = new ArrayList<>(dataListForAnalisys);
         List<CurrencyData> resultList = new ArrayList<>();
         String titleFormList = getDataTitleFormList(dataListForAnalisys);

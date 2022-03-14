@@ -28,9 +28,16 @@ public class DateTimeUtil {
         }
     }
 
-    public static long daysBetweenFromNowToDate(String date) {
+    public static boolean isPast(String date) {
+        return daysBetweenFromNowToDate(getLocalDate(date)) <= 0;
+    }
+
+    public static long daysBetweenFromNowToDate(LocalDate date) {
         return ChronoUnit.DAYS.between(
-                LocalDate.now(), LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN))
-        );
+                LocalDate.now(), date);
+    }
+
+    public static LocalDate getLocalDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
     }
 }

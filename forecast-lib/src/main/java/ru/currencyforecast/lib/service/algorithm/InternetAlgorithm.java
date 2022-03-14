@@ -10,10 +10,9 @@ import static ru.currencyforecast.lib.common.Constant.ALG_INTERNET_BASE;
  * јлгоритм Уиз интернетаФ. Ёкстраполируем по данным последнего мес€ца.
  * <a href="https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/LinearRegression.java.html">ссылка на алгоритм</a>
  */
-public class InternetAlgorithmImpl implements Algorithm {
-    @Override
-    public int getBaseDaysNumber() {
-        return ALG_INTERNET_BASE;
+public class InternetAlgorithm extends Algorithm {
+    public InternetAlgorithm() {
+        super(ALG_INTERNET_BASE);
     }
 
     @Override
