@@ -35,4 +35,6 @@ public interface Repository {
      */
     List<CurrencyData> getDataByCdxAndLimitByALgBaseIndex(String cdx, int algBaseIndex);
 
+    List<CurrencyData> getDataByCdxFromDate(String cdx, String date);
+
 }

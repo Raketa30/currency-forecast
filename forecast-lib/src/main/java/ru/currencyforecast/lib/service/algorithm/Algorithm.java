@@ -29,6 +29,14 @@ public abstract class Algorithm {
      * @return список с прогнозом на количсетво дней
      */
     public abstract List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays);
+
+    protected String getDataTitleFormList(List<CurrencyData> currencyDataList) {
+        return currencyDataList.get(0).getCdx();
+    }
+
+    protected int getCurrencyNominal(List<CurrencyData> currencyDataList) {
+        return currencyDataList.get(0).getNominal();
+    }
 }
 
 

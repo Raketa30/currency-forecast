@@ -1,5 +1,7 @@
 package ru.currencyforecast.lib.util;
 
+import org.shredzone.commons.suncalc.MoonPhase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -39,5 +41,18 @@ public class DateTimeUtil {
 
     public static LocalDate getLocalDate(String date) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
+    }
+
+    public static boolean isEqualOrAfter(LocalDate current, LocalDate dateBefore) {
+        return current.isEqual(dateBefore) || current.isAfter(dateBefore);
+    }
+
+    public static boolean isFullMoon(LocalDate localDate) {
+        MoonPhase.Parameters parameters = MoonPhase.compute()
+                .phase(MoonPhase.Phase.FULL_MOON);
+        MoonPhase moonPhase = parameters
+                .on(localDate)
+                .execute();
+        return moonPhase.getTime().toLocalDate().isEqual(localDate);
     }
 }

@@ -42,6 +42,14 @@
             <artifactId>jcommander</artifactId>
             <version>${jcommander.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.shredzone.commons/commons-suncalc -->
+        <dependency>
+            <groupId>org.shredzone.commons</groupId>
+            <artifactId>commons-suncalc</artifactId>
+            <version>3.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>

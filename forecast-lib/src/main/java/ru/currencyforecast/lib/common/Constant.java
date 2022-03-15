@@ -34,10 +34,10 @@ public class Constant {
     public static final String ALG_INTERNET = "internet";
     public static final String ALG_AVG = "average";
 
-    public static final int ALG_ACTUAL_BASE = 1095; //3 year * 365 days
-    public static final int ALG_MISTIC_BASE = 7;
-    public static final int ALG_INTERNET_BASE = 7;
-    public static final int ALG_AVG_BASE = 7;// week
+    public static final int ALG_ACTUAL_BASE = 1096; //3 year * 365 days + 1ay
+    public static final int ALG_MISTIC_BASE = 365; //29.5 days every fullmoon * 3 times
+    public static final int ALG_INTERNET_BASE = 30; //last month
+    public static final int ALG_AVG_BASE = 7; //last 7 result
     //output
     public static final String OUTPUT_LIST = "list";
     public static final String OUTPUT_GRAPH = "graph";
