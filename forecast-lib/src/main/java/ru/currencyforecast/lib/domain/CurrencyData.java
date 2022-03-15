@@ -14,15 +14,15 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode
 public class CurrencyData {
-    @CsvBindByName
-    private Integer nominal;
+    @CsvBindByName(locale = "ru-RU")
+    private int nominal;
 
     @CsvBindByName
     @CsvDate("dd.MM.yyyy")
     private LocalDate data;
 
     @CsvBindByName(locale = "ru-RU")
-    private Double curs;
+    private double curs;
 
     @CsvBindByName
     private String cdx;

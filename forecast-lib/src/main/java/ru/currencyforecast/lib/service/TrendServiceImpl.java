@@ -29,7 +29,7 @@ public class TrendServiceImpl implements TrendService {
 
     private Plot createPlot(Map<String, List<CurrencyData>> forecast) {
         Plot plot = Plot.create();
-        plot.title("Currency from map");
+        plot.title("CURRENCY");
         plot.xlabel("DAYS");
         plot.ylabel("PRICE");
         plot.legend();
