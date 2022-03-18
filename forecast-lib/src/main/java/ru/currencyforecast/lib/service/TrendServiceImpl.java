@@ -33,11 +33,11 @@ public class TrendServiceImpl implements TrendService {
         plot.title("CURRENCY");
         plot.xlabel("DAYS");
         plot.ylabel("PRICE");
-        plot.legend();
         for (Map.Entry<String, List<CurrencyData>> entry : forecast.entrySet()) {
             List<Double> prices = entry.getValue().stream().map(CurrencyData::getCurs).collect(Collectors.toList());
-            plot.plot().add(prices);
+            plot.plot().add(prices).linestyle("-").label(entry.getValue().get(0).getCdx());
         }
+        plot.legend().loc("upper right");
         log.debug("TrendServiceImpl createPlot plot created");
         return plot;
     }

@@ -8,7 +8,7 @@ import ru.currencyforecast.lib.domain.CurrencyData;
 import ru.currencyforecast.lib.domain.ForecastRequest;
 import ru.currencyforecast.lib.domain.message.DataMessage;
 import ru.currencyforecast.lib.domain.response.Response;
-import ru.currencyforecast.lib.domain.response.ResponseImpl;
+import ru.currencyforecast.lib.domain.response.ForecastResponse;
 import ru.currencyforecast.lib.domain.response.ResponseType;
 import ru.currencyforecast.lib.model.DataModel;
 import ru.currencyforecast.lib.service.ServiceImpl;
@@ -35,7 +35,7 @@ class ControllerImplTest {
     }
 
     @Test
-    void shouldAddMessageResponseToDataModel() {
+    void shouldAddMessageResponseToDataModelTest() {
         //given
         String message = "Test Message";
         //when
@@ -45,7 +45,7 @@ class ControllerImplTest {
     }
 
     @Test
-    void shouldAddDataResponseToDataModel() {
+    void shouldAddDataResponseToDataModelTest() {
         //given
         ForecastRequest request = ForecastRequest.builder()
                 .algorithm("mistic")
@@ -60,7 +60,7 @@ class ControllerImplTest {
                 .curs(123.1)
                 .cdx("USD")
                 .build();
-        Response response = new ResponseImpl<>(ResponseType.DATA, new DataMessage(Collections.singletonList(currencyData)));
+        Response response = new ForecastResponse<>(ResponseType.DATA, new DataMessage(Collections.singletonList(currencyData)));
         //when
         when(service.getForecastResponse(request)).thenReturn(response);
         controller.execute(request);
