@@ -7,8 +7,7 @@ import ru.currencyforecast.lib.domain.message.AbstractMessage;
 
 @AllArgsConstructor
 @Getter
-@ToString
-public class ForecastResponse<T> implements Response {
+public class ResponseImpl<T> implements Response {
     private final ResponseType type;
     private final AbstractMessage<T> message;
 }

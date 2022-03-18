@@ -1,10 +1,10 @@
 package ru.currencyforecast.lib.service;
 
-import ru.currencyforecast.lib.domain.Request;
+import ru.currencyforecast.lib.domain.ForecastRequest;
 import ru.currencyforecast.lib.domain.response.Response;
 
 /**
- * ќсновной сервис приложени€ ?? - ѕеределать в один метод возвращающий  респонс с типизированным сообщением
+ * ќсновной сервис приложени€
  */
 public interface Service {
     /**
@@ -13,5 +13,5 @@ public interface Service {
      * @param request - запрос прогноза
      * @return Response
      */
-    Response getForecast(Request request);
+    Response getForecastResponse(ForecastRequest request);
 }

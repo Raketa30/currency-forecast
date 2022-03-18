@@ -1,11 +1,10 @@
 package ru.currencyforecast.lib.cli;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.UnixStyleUsageFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.controller.Controller;
-import ru.currencyforecast.lib.domain.Request;
+import ru.currencyforecast.lib.domain.ForecastRequest;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,20 +18,21 @@ public class CommanderImpl implements Commander {
     private JCommander commander;
 
     @Override
-    public void execute(String command) {
+    public boolean execute(String command) {
         try {
             Arguments arguments = extractArguments(command);
-            if (arguments.isHelp()) {
+            if (isHelp(arguments)) {
                 StringBuilder stringBuilder = new StringBuilder();
                 commander.getUsageFormatter().usage(stringBuilder);
                 controller.addMessage(stringBuilder.toString());
             } else {
                 controller.execute(buildRequest(arguments));
             }
+            return true;
         } catch (RuntimeException e) {
             log.info("CommanderImpl RuntimeException: {}", e.getMessage());
-            e.printStackTrace();
-            controller.addMessage(MESSAGE_WRONG_COMMAND + e.getMessage());
+            controller.addMessage(MESSAGE_WRONG_COMMAND + command);
+            return false;
         }
     }
 
@@ -41,26 +41,42 @@ public class CommanderImpl implements Commander {
         commander = JCommander.newBuilder()
                 .addObject(arguments)
                 .programName(COMMAND_RATE)
-                .usageFormatter(new UnixStyleUsageFormatter(commander))
+//                .usageFormatter(new DefaultUsageFormatter(commander))
                 .build();
         commander.parse(command.split("\\s+"));
-        log.debug("CommanderImpl extractArgument: command '{}' parsed", commander.getParsedCommand());
+        log.debug("CommanderImpl extractArgument: command '{}' parsed", this.commander.getParsedCommand());
         return arguments;
     }
 
-    private Request buildRequest(Arguments arguments) {
+    private boolean isHelp(Arguments arguments) {
+        return arguments.isHelp() && otherArgsIsNull(arguments);
+    }
+
+    private ForecastRequest buildRequest(Arguments arguments) {
         if (!isValidParams(arguments)) {
             log.info("CommanderImpl buildRequest: arguments not valid");
             throw new IllegalArgumentException("arguments not valid");
         }
         String periodOrDate = arguments.getDate() != null ? arguments.getDate() : arguments.getPeriod();
         String output = Objects.isNull(arguments.getOutput()) ? OUTPUT_LIST : arguments.getOutput();
-        return Request.builder()
+        return ForecastRequest.builder()
                 .currencyList(arguments.getRate())
                 .periodOrDate(periodOrDate)
                 .algorithm(arguments.getAlg())
                 .output(output)
                 .build();
+    }
+
+    /**
+     * @param arguments - аргументы
+     * @return true - если все аргументы null
+     */
+    private boolean otherArgsIsNull(Arguments arguments) {
+        return Objects.isNull(arguments.getOutput()) &&
+                Objects.isNull(arguments.getAlg()) &&
+                Objects.isNull(arguments.getRate()) &&
+                Objects.isNull(arguments.getDate()) &&
+                Objects.isNull(arguments.getPeriod());
     }
 
     /**

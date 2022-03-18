@@ -7,5 +7,5 @@ public interface Commander {
     /**
      * @param command - введеная пользователем команда
      */
-    void execute(String command);
+    boolean execute(String command);
 }

@@ -6,7 +6,7 @@ import ru.currencyforecast.lib.cli.CommanderImpl;
 import ru.currencyforecast.lib.controller.Controller;
 import ru.currencyforecast.lib.controller.ControllerImpl;
 import ru.currencyforecast.lib.model.DataModel;
-import ru.currencyforecast.lib.repository.CurrencyRepository;
+import ru.currencyforecast.lib.repository.CsvCurrencyRepository;
 import ru.currencyforecast.lib.repository.Repository;
 import ru.currencyforecast.lib.service.*;
 import ru.currencyforecast.telegram.bot.CurrencyBot;
@@ -21,7 +21,7 @@ public class BotFactory {
     }
 
     public static CurrencyBot getCurrencyBot() {
-        Repository repository = new CurrencyRepository();
+        Repository repository = new CsvCurrencyRepository();
         ForecastService forecastService = new ForecastServiceImpl();
         TrendService trendService = new TrendServiceImpl();
         DataModel dataModel = new DataModel();

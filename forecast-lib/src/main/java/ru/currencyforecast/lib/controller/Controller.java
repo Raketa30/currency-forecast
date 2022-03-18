@@ -1,6 +1,6 @@
 package ru.currencyforecast.lib.controller;
 
-import ru.currencyforecast.lib.domain.Request;
+import ru.currencyforecast.lib.domain.ForecastRequest;
 
 /**
  * Основной контроллер
@@ -18,5 +18,5 @@ public interface Controller {
      *
      * @param request - параметры запроса
      */
-    void execute(Request request);
+    void execute(ForecastRequest request);
 }

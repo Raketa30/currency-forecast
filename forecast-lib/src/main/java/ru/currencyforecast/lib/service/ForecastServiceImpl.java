@@ -9,6 +9,9 @@ import java.util.*;
 
 import static ru.currencyforecast.lib.common.Constant.*;
 
+/**
+ * Имплементация сервиса прогнозов
+ */
 public class ForecastServiceImpl implements ForecastService {
     private final Map<String, Algorithm> algorithmMap;
     private final Map<String, Integer> periodIndexMap;

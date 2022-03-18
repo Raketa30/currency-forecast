@@ -47,8 +47,8 @@ public class MisticAlgorithm extends Algorithm {
         return resultList;
     }
 
-    private int addNextDataToResult(LinkedList<CurrencyData> processList, List<CurrencyData> resultList, int i) {
-        if (i == 0) {
+    private int addNextDataToResult(LinkedList<CurrencyData> processList, List<CurrencyData> resultList, int daysLeft) {
+        if (daysLeft == 0) {
             return 0;
         }
         int coin = random.nextInt(2);
@@ -67,7 +67,7 @@ public class MisticAlgorithm extends Algorithm {
         processList.addFirst(currencyData);
         resultList.add(currencyData);
 
-        return addNextDataToResult(processList, resultList, --i);
+        return addNextDataToResult(processList, resultList, --daysLeft);
     }
 
     private double getAverageTreeFullmoonPrice(List<CurrencyData> processList) {

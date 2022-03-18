@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Request {
+public class ForecastRequest {
     private List<String> currencyList;
     private String periodOrDate;
     private String algorithm;

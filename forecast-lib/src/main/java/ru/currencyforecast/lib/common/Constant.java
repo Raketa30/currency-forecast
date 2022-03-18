@@ -56,7 +56,7 @@ public class Constant {
     public static final int FORECAST_DEPTH_WEEK_INDEX = 7;
     public static final int FORECAST_DEPTH_TOMORROW_INDEX = 1;
     //messages
-    public static final String MESSAGE_EMPTY_DATA = "Empty data in csv file";
+    public static final String WRONG_CURRENCY_OR_EMPTY_DATA_IN_CSV_FILE = "Wrong currency or Empty data in csv file";
     public static final String MESSAGE_WRONG_COMMAND = "Wrong command format, for help use -help command: ";
     public static final String MESSAGE_WRONG_ALG = "Wrong algorithm: ";
     public static final String MESSAGE_WRONG_PERIOD = "Wrong period: ";

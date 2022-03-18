@@ -51,7 +51,7 @@ public class InternetAlgorithm extends Algorithm {
     }
 
 
-/******************************************************************************
+/*
  *  Compilation:  javac LinearRegression.java
  *  Execution:    java  LinearRegression
  *  Dependencies: none
@@ -75,10 +75,12 @@ public class InternetAlgorithm extends Algorithm {
      * @author Robert Sedgewick
      * @author Kevin Wayne
      */
-    class LinearRegression {
-        private final double intercept, slope;
+    private static class LinearRegression {
+        private final double intercept;
+        private final double slope;
         private final double r2;
-        private final double svar0, svar1;
+        private final double svar0;
+        private final double svar1;
 
         /**
          * Performs a linear regression on the data points {@code (y[i], x[i])}.
@@ -94,7 +96,9 @@ public class InternetAlgorithm extends Algorithm {
             int n = x.length;
 
             // first pass
-            double sumx = 0.0, sumy = 0.0, sumx2 = 0.0;
+            double sumx = 0.0;
+            double sumy = 0.0;
+            double sumx2 = 0.0;
             for (int i = 0; i < n; i++) {
                 sumx += x[i];
                 sumx2 += x[i] * x[i];
@@ -104,7 +108,9 @@ public class InternetAlgorithm extends Algorithm {
             double ybar = sumy / n;
 
             // second pass: compute summary statistics
-            double xxbar = 0.0, yybar = 0.0, xybar = 0.0;
+            double xxbar = 0.0;
+            double yybar = 0.0;
+            double xybar = 0.0;
             for (int i = 0; i < n; i++) {
                 xxbar += (x[i] - xbar) * (x[i] - xbar);
                 yybar += (y[i] - ybar) * (y[i] - ybar);
@@ -167,10 +173,8 @@ public class InternetAlgorithm extends Algorithm {
          * <em>R</em><sup>2</sup>
          */
         public String toString() {
-            StringBuilder s = new StringBuilder();
-            s.append(String.format("%.2f n + %.2f", slope(), intercept()));
-            s.append("  (R^2 = " + String.format("%.3f", R2()) + ")");
-            return s.toString();
+            return String.format("%.2f n + %.2f", slope(), intercept()) +
+                    "  (R^2 = " + String.format("%.3f", R2()) + ")";
         }
 
         /**
@@ -203,7 +207,7 @@ public class InternetAlgorithm extends Algorithm {
 
     }
 
-/******************************************************************************
+/*
  *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook

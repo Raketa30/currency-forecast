@@ -8,7 +8,6 @@ import ru.currencyforecast.lib.util.DateTimeUtil;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Getter
 @Setter

@@ -24,6 +24,7 @@ public class TrendServiceImpl implements TrendService {
         if (isSuccesfullySavedImage(plot)) {
             return Optional.of(new File(PLOT_IMAGE_SAVING_LINK));
         }
+        log.debug("TrendServiceImpl getForecastTrend Optional emptyFile");
         return Optional.empty();
     }
 
@@ -37,6 +38,7 @@ public class TrendServiceImpl implements TrendService {
             List<Double> prices = entry.getValue().stream().map(CurrencyData::getCurs).collect(Collectors.toList());
             plot.plot().add(prices);
         }
+        log.debug("TrendServiceImpl createPlot plot created");
         return plot;
     }
 
@@ -47,6 +49,7 @@ public class TrendServiceImpl implements TrendService {
             }
             plot.savefig(PLOT_IMAGE_SAVING_LINK).dpi(200);
             plot.executeSilently();
+            log.debug("TrendServiceImpl isSuccesfullySavedImage image saved");
             return true;
         } catch (IOException | PythonExecutionException e) {
             log.info("TrendServiceImpl image not saved, excp: {}", e.getMessage());
