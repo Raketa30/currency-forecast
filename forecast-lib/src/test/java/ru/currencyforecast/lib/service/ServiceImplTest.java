@@ -36,7 +36,7 @@ class ServiceImplTest {
     }
 
     @Test
-    void shouldReturnDataTypeResponseWithCorrectRequest() {
+    void shouldReturnDataTypeResponseWithCorrectRequestTest() {
         //given
         ForecastRequest request = ForecastRequest.builder()
                 .algorithm(ALG_MISTIC)
@@ -58,7 +58,7 @@ class ServiceImplTest {
     }
 
     @Test
-    void shouldReturnMessageTypeResponseWithWrongAlg() {
+    void shouldReturnMessageTypeResponseWithWrongAlgTest() {
         //given
         ForecastRequest request = ForecastRequest.builder()
                 .algorithm("wrong")
@@ -77,7 +77,7 @@ class ServiceImplTest {
     }
 
     @Test
-    void shouldReturnMessageTypeResponseWithWrongCurrency() {
+    void shouldReturnMessageTypeResponseWithWrongCurrencyTest() {
         //given
         ForecastRequest request = ForecastRequest.builder()
                 .algorithm(ALG_MISTIC)

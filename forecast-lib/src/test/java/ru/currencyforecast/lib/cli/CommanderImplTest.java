@@ -25,37 +25,37 @@ class CommanderImplTest {
     }
 
     @Test
-    void shouldReturnFalseWhenHelpCommandWithOtherCommands() {
+    void shouldReturnFalseWhenHelpCommandWithOtherCommandsTest() {
         assertThat(commander.execute("-help rate USD -output")).isFalse();
         assertThat(commander.execute("-help differentWord")).isFalse();
     }
 
     @Test
-    void shouldReturnTrueWithSingleCurrencyRatePeriodCommandOutputListOrGraph() {
+    void shouldReturnTrueWithSingleCurrencyRatePeriodCommandOutputListOrGraphTest() {
         assertThat(commander.execute("rate USD -period month -alg mistic -output list")).isTrue();
         assertThat(commander.execute("rate USD -period week -alg mistic -output graph")).isTrue();
     }
 
     @Test
-    void shouldReturnFalseWithSingleCurrencyRateDateCommandAndOutputListOrGraph() {
+    void shouldReturnFalseWithSingleCurrencyRateDateCommandAndOutputListOrGraphTest() {
         assertThat(commander.execute("rate USD -date 23.05.2021 -alg mistic -output list")).isFalse();
         assertThat(commander.execute("rate USD -date tomorrow -alg mistic -output graph")).isFalse();
     }
 
     @Test
-    void shouldReturnFalseWithMultiCurrencyRatePeriodCommandAndOutputList() {
+    void shouldReturnFalseWithMultiCurrencyRatePeriodCommandAndOutputListTest() {
         assertThat(commander.execute("rate USD,EUR -period month -alg mistic -output list")).isFalse();
         assertThat(commander.execute("rate USD,AMD -period week -alg mistic -output list")).isFalse();
     }
 
     @Test
-    void shouldReturnTrueWithMultiCurrencyRatePeriodCommandAndOutputList() {
+    void shouldReturnTrueWithMultiCurrencyRatePeriodCommandAndOutputListTest() {
         assertThat(commander.execute("rate USD,EUR -period month -alg mistic -output graph")).isTrue();
         assertThat(commander.execute("rate USD,AMD -period week -alg mistic -output graph")).isTrue();
     }
 
     @Test
-    void shouldReturnFalseWithWrongCommandsAndWrongArguments() {
+    void shouldReturnFalseWithWrongCommandsAndWrongArgumentsTest() {
         assertThat(commander.execute("rate USD,EUR -bla month -alg mistic -output")).isFalse();
         assertThat(commander.execute("rate -period week -alg mistic -output list")).isFalse();
         assertThat(commander.execute("wrong args")).isFalse();

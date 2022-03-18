@@ -8,7 +8,7 @@ import ru.currencyforecast.lib.domain.response.Response;
  */
 public interface Service {
     /**
-     * метод возвращающий ответ прогнозом в виде графика
+     * метод возвращающий ответ прогноза
      *
      * @param request - запрос прогноза
      * @return Response

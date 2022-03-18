@@ -8,7 +8,7 @@ import ru.currencyforecast.lib.domain.message.DataMessage;
 import ru.currencyforecast.lib.domain.message.ImageMessage;
 import ru.currencyforecast.lib.domain.message.TextMessage;
 import ru.currencyforecast.lib.domain.response.Response;
-import ru.currencyforecast.lib.domain.response.ResponseImpl;
+import ru.currencyforecast.lib.domain.response.ForecastResponse;
 import ru.currencyforecast.lib.domain.response.ResponseType;
 import ru.currencyforecast.lib.repository.Repository;
 import ru.currencyforecast.lib.util.DateTimeUtil;
@@ -58,7 +58,7 @@ public class ServiceImpl implements Service {
             return getTextResponse(WRONG_CURRENCY_OR_EMPTY_DATA_IN_CSV_FILE);
         }
         List<CurrencyData> forecast = getDataListByPeriodOrDate(request, dataByAlgorithm);
-        return new ResponseImpl<>(ResponseType.DATA, new DataMessage(forecast));
+        return new ForecastResponse<>(ResponseType.DATA, new DataMessage(forecast));
     }
 
     /**
@@ -76,7 +76,7 @@ public class ServiceImpl implements Service {
      * @return Response с текстовым сообщением
      */
     private Response getTextResponse(String message) {
-        return new ResponseImpl<>(ResponseType.TEXT, new TextMessage(message));
+        return new ForecastResponse<>(ResponseType.TEXT, new TextMessage(message));
     }
 
     /**
@@ -127,7 +127,7 @@ public class ServiceImpl implements Service {
     private Response getImageResponse(File imageFile) {
         try {
             BufferedImage bufferedImage = ImageIO.read(imageFile);
-            return new ResponseImpl<>(ResponseType.IMAGE, new ImageMessage(bufferedImage));
+            return new ForecastResponse<>(ResponseType.IMAGE, new ImageMessage(bufferedImage));
         } catch (IOException e) {
             log.info("ServiceImpl prepareImageResponse exception - {}", e.getMessage());
         }
