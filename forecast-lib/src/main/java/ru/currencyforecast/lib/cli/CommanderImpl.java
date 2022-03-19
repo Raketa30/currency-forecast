@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.currencyforecast.lib.controller.Controller;
 import ru.currencyforecast.lib.domain.ForecastRequest;
+import ru.currencyforecast.lib.util.DateTimeUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +25,7 @@ public class CommanderImpl implements Commander {
             Arguments arguments = extractArguments(command);
             if (isHelp(arguments)) {
                 StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(MESSAGE_USAGE_HELP);
                 commander.getUsageFormatter().usage(stringBuilder);
                 controller.addMessage(stringBuilder.toString());
             } else {
@@ -31,7 +34,6 @@ public class CommanderImpl implements Commander {
             return true;
         } catch (RuntimeException e) {
             log.info("CommanderImpl RuntimeException: {}", e.getMessage());
-            controller.addMessage(MESSAGE_WRONG_COMMAND + command);
             return false;
         }
     }
@@ -41,7 +43,6 @@ public class CommanderImpl implements Commander {
         commander = JCommander.newBuilder()
                 .addObject(arguments)
                 .programName(COMMAND_RATE)
-//                .usageFormatter(new DefaultUsageFormatter(commander))
                 .build();
         commander.parse(command.split("\\s+"));
         log.debug("CommanderImpl extractArgument: command '{}' parsed", this.commander.getParsedCommand());
@@ -89,7 +90,8 @@ public class CommanderImpl implements Commander {
                 isContainsPeriodOrDate(arguments) &&
                 isContainsAlg(arguments) &&
                 isValidDateAndOutput(arguments) &&
-                isValidRateAndOutput(arguments);
+                isValidRateAndOutput(arguments) &&
+                isNoLongForecast(arguments);
     }
 
     /**
@@ -166,6 +168,24 @@ public class CommanderImpl implements Commander {
         if (isOutputListAndMultirate) {
             controller.addMessage(MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST);
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param arguments - аргументы командной строки
+     * @return true если не превышен лимит в днях
+     */
+    private boolean isNoLongForecast(Arguments arguments) {
+        String date = arguments.getDate();
+        if (Objects.nonNull(date) && DateTimeUtil.isDate(date)) {
+            LocalDate d = DateTimeUtil.getLocalDate(date);
+            int i = DateTimeUtil.daysBetweenFromNowToDate(d);
+            boolean inLimit = i <= FORECAST_LIMIT_DAYS;
+            if (!inLimit) {
+                controller.addMessage(MESSAGE_FORECAST_LIMIT + FORECAST_LIMIT_DAYS);
+                return false;
+            }
         }
         return true;
     }

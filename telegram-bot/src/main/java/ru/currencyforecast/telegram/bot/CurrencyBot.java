@@ -60,7 +60,11 @@ public class CurrencyBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             if (message.hasText()) {
                 String command = message.getText().toLowerCase();
-                botService.execute(command);
+                if (command.equals("/start")) {
+                    botService.execute("-help");
+                } else {
+                    botService.execute(command);
+                }
                 sendResponse(message);
                 log.debug("CurrencyBot onUpdateReceived - bot received command {}", command);
             }

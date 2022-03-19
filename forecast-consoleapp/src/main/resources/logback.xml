@@ -1,5 +1,5 @@
 <configuration>
-    <property name="log_dir" value="../a_logs/forecast"/>
+    <property name="log_dir" value="./a_logs/forecast"/>
     <property name="maxHistory" value="7"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

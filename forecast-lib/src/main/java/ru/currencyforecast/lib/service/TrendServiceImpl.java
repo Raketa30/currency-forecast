@@ -38,7 +38,9 @@ public class TrendServiceImpl implements TrendService {
         plot.xlabel("DAYS");
         plot.ylabel("PRICE");
         for (Map.Entry<String, List<CurrencyData>> entry : forecast.entrySet()) {
-            List<Double> prices = entry.getValue().stream().map(CurrencyData::getCurs).collect(Collectors.toList());
+            List<Double> prices = entry.getValue().stream()
+                    .map(CurrencyData::getCurs)
+                    .collect(Collectors.toList());
             plot.plot().add(prices).linestyle("-").label(entry.getValue().get(0).getCdx());
         }
         plot.legend().loc("upper right");
@@ -47,7 +49,6 @@ public class TrendServiceImpl implements TrendService {
     }
 
     /**
-     *
      * @param plot - диаграмма
      * @return true если файл изображения успешно сохранен
      */

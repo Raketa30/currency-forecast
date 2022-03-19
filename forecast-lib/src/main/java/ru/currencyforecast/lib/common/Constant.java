@@ -55,11 +55,13 @@ public class Constant {
     public static final int FORECAST_DEPTH_MONTH_INDEX = 30;
     public static final int FORECAST_DEPTH_WEEK_INDEX = 7;
     public static final int FORECAST_DEPTH_TOMORROW_INDEX = 1;
+    public static final int FORECAST_LIMIT_DAYS = 2000;
     //messages
     public static final String WRONG_CURRENCY_OR_EMPTY_DATA_IN_CSV_FILE = "Wrong currency or Empty data in csv file";
     public static final String MESSAGE_WRONG_COMMAND = "Wrong command format, for help use -help command: ";
     public static final String MESSAGE_WRONG_ALG = "Wrong algorithm: ";
     public static final String MESSAGE_WRONG_PERIOD = "Wrong period: ";
+    public static final String MESSAGE_FORECAST_LIMIT = "Allo Yoba eto ti? Limit days: ";
     public static final String MESSAGE_WRONG_OUTPUT = "Wrong output: ";
     public static final String MESSAGE_MULTICURRENCY_IN_OUTPUT_LIST = "Multicurrency not supported in output -list";
     public static final String MESSAGE_NODATA_FOR_RATE = "Rate list is empty";
@@ -70,6 +72,12 @@ public class Constant {
     public static final String MESSAGE_WRONG_IMAGE = "Wrong image: ";
     public static final String MESSAGE_DATE_WITH_OUTPUT = "Command -date not required -output";
     public static final String MESSAGE_DATE_IS_PAST = "This date is past: ";
+    public static final String MESSAGE_USAGE_HELP =
+            "Command input formats: \n" +
+            "For single rate: \n" +
+            "rate [options] -alg [options] -date [options]\n" +
+            "For long rate: \n" +
+            "rate [options] -alg [options] -period [options] -output [options]\n";
 
     private Constant() {
     }

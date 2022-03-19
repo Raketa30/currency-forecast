@@ -3,7 +3,6 @@ package ru.currencyforecast.lib.service.algorithm;
 import ru.currencyforecast.lib.domain.CurrencyData;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,20 +21,14 @@ public class ActualAlgorithm extends Algorithm {
     }
 
     @Override
-    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
-        LinkedList<CurrencyData> processList = new LinkedList<>(dataListForAnalisys);
-        List<CurrencyData> resultList = new ArrayList<>();
-        String titleFormList = getDataTitleFormList(dataListForAnalisys);
-        int currencyNominal = getCurrencyNominal(dataListForAnalisys);
-        LocalDate nextDay = LocalDate.now();
+    protected void doForecast(String cdx, int nominal, LocalDate nextDay, LinkedList<CurrencyData> processList, List<CurrencyData> resultList, int periodDays) {
         for (int i = 0; i < periodDays; i++) {
             nextDay = nextDay.plusDays(1);
             double cost = getNextDayPrice(processList, nextDay);
-            CurrencyData currencyData = new CurrencyData(currencyNominal, nextDay, cost, titleFormList);
+            CurrencyData currencyData = new CurrencyData(nominal, nextDay, cost, cdx);
             processList.addFirst(currencyData);
             resultList.add(currencyData);
         }
-        return resultList;
     }
 
     private double getNextDayPrice(List<CurrencyData> processList, LocalDate nextDay) {

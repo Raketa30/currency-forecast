@@ -15,29 +15,29 @@ import static ru.currencyforecast.lib.common.Constant.*;
 @NoArgsConstructor
 public class Arguments {
     @Parameter(names = {COMMAND_RATE},
-            description = "Currency rate for: USD, EUR, TRY, AMD, BGN",
+            description = "currency: USD,EUR,TRY,AMD,BGN",
             required = true)
     private List<String> rate;
 
     @Parameter(names = COMMAND_PERIOD,
-            description = "Rate period: week or month")
+            description = "period: week or month")
     private String period;
 
     @Parameter(names = COMMAND_DATE,
-            description = "Rate date: tomorrow or date in format dd.MM.yyyy")
+            description = "single date: 'tomorrow' or date in format 'dd.MM.yyyy'")
     private String date;
 
     @Parameter(names = COMMAND_ALGORITHM,
-            description = "Rate algorithm: actual, mistic, internet, average",
+            description = "algorithms: actual, mistic, internet, average",
             required = true)
     private String alg;
 
     @Parameter(names = COMMAND_OUTPUT,
-            description = "Output format: list or graph")
+            description = "output: list or graph")
     private String output;
 
     @Parameter(names = COMMAND_HELP,
-            description = "Usage",
+            description = "usage",
             help = true)
     private boolean help;
 }

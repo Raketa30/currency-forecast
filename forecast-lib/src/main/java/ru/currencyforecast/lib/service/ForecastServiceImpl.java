@@ -37,7 +37,7 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public Optional<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, LocalDate date) {
-        int daysForDate = (int) DateTimeUtil.daysBetweenFromNowToDate(date);
+        int daysForDate = DateTimeUtil.daysBetweenFromNowToDate(date);
         List<CurrencyData> forcastForPeriod = algorithm.getForcastForPeriod(incomingDataList, daysForDate);
         CurrencyData last = forcastForPeriod.get(forcastForPeriod.size() - 1);
         return Optional.of(last);

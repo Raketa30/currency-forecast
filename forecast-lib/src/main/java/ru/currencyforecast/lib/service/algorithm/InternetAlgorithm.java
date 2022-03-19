@@ -3,7 +3,6 @@ package ru.currencyforecast.lib.service.algorithm;
 import ru.currencyforecast.lib.domain.CurrencyData;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,24 +18,18 @@ public class InternetAlgorithm extends Algorithm {
     }
 
     @Override
-    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
-        LinkedList<CurrencyData> processList = new LinkedList<>(dataListForAnalisys);
-        List<CurrencyData> resultList = new ArrayList<>();
-        String titleFormList = getDataTitleFormList(dataListForAnalisys);
-        int currencyNominal = getCurrencyNominal(dataListForAnalisys);
-        LocalDate nextDay = LocalDate.now();
+    protected void doForecast(String cdx, int nominal, LocalDate nextDay, LinkedList<CurrencyData> processList, List<CurrencyData> resultList, int periodDays) {
         for (int i = 0; i < periodDays; i++) {
             nextDay = nextDay.plusDays(1);
             double cost = getLinerRegressionPrice(processList);
-            CurrencyData currencyData = new CurrencyData(currencyNominal, nextDay, cost, titleFormList);
+            CurrencyData currencyData = new CurrencyData(nominal, nextDay, cost, cdx);
             processList.addFirst(currencyData);
             resultList.add(currencyData);
         }
-        return resultList;
     }
 
     private double getLinerRegressionPrice(List<CurrencyData> processList) {
-         List<CurrencyData> lastValues = processList.subList(0, Math.min(processList.size(), ALG_INTERNET_BASE));
+        List<CurrencyData> lastValues = processList.subList(0, Math.min(processList.size(), ALG_INTERNET_BASE));
         return getPredict(lastValues);
     }
 
@@ -49,17 +42,6 @@ public class InternetAlgorithm extends Algorithm {
                 .toArray();
         return new LinearRegression(x, y).predict(x[x.length - 1] + 1);
     }
-
-
-/*
- *  Compilation:  javac LinearRegression.java
- *  Execution:    java  LinearRegression
- *  Dependencies: none
- *
- *  Compute least squares solution to y = beta * x + alpha.
- *  Simple linear regression.
- *
- ******************************************************************************/
 
     /**
      * The {@code LinearRegression} class performs a simple linear regression
@@ -207,28 +189,28 @@ public class InternetAlgorithm extends Algorithm {
 
     }
 
-/*
- *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
- *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
- *
- *  algs4.jar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  algs4.jar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+    /*
+     *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
+     *
+     *  This file is part of algs4.jar, which accompanies the textbook
+     *
+     *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+     *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+     *      http://algs4.cs.princeton.edu
+     *
+     *
+     *  algs4.jar is free software: you can redistribute it and/or modify
+     *  it under the terms of the GNU General Public License as published by
+     *  the Free Software Foundation, either version 3 of the License, or
+     *  (at your option) any later version.
+     *
+     *  algs4.jar is distributed in the hope that it will be useful,
+     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     *  GNU General Public License for more details.
+     *
+     *  You should have received a copy of the GNU General Public License
+     *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+     ******************************************************************************/
 
 }
