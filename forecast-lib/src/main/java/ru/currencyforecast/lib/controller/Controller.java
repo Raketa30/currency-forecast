@@ -3,20 +3,20 @@ package ru.currencyforecast.lib.controller;
 import ru.currencyforecast.lib.domain.ForecastRequest;
 
 /**
- * Основной контроллер
+ * РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅС‚СЂРѕР»Р»РµСЂ
  */
 public interface Controller {
     /**
-     * передача сообщения в Response
+     * РїРµСЂРµРґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ РІ Response
      *
-     * @param message - текст сообщения
+     * @param message - С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
      */
     void addMessage(String message);
 
     /**
-     * Непосредственное выполнение комманды с параметрами:
+     * РќРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ РІС‹РїРѕР»РЅРµРЅРёРµ РєРѕРјРјР°РЅРґС‹ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё:
      *
-     * @param request - параметры запроса
+     * @param request - РїР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСЂРѕСЃР°
      */
     void execute(ForecastRequest request);
 }

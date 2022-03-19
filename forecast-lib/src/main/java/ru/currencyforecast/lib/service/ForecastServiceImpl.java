@@ -10,7 +10,7 @@ import java.util.*;
 import static ru.currencyforecast.lib.common.Constant.*;
 
 /**
- * Имплементация сервиса прогнозов
+ * РРјРїР»РµРјРµРЅС‚Р°С†РёСЏ СЃРµСЂРІРёСЃР° РїСЂРѕРіРЅРѕР·РѕРІ
  */
 public class ForecastServiceImpl implements ForecastService {
     private final Map<String, Algorithm> algorithmMap;

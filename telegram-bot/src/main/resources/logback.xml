@@ -1,5 +1,5 @@
 <configuration>
-    <property name="log_dir" value="logs/bot"/>
+    <property name="log_dir" value="../a_logs/bot"/>
     <property name="maxHistory" value="7"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -60,7 +60,7 @@
     </appender>
 
     <root level="debug">
-
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG"/>
         <appender-ref ref="INFO"/>
     </root>

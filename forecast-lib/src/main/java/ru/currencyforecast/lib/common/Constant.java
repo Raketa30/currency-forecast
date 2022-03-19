@@ -1,7 +1,7 @@
 package ru.currencyforecast.lib.common;
 
 /**
- * Константы используемые в сервисе
+ * РљРѕРЅСЃС‚Р°РЅС‚С‹ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РІ СЃРµСЂРІРёСЃРµ
  */
 public class Constant {
     //charset

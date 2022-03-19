@@ -5,7 +5,7 @@ import ru.currencyforecast.lib.domain.CurrencyData;
 import java.util.List;
 
 /**
- * Утилитный класс для печати в консоль
+ * РЈС‚РёР»РёС‚РЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РїРµС‡Р°С‚Рё РІ РєРѕРЅСЃРѕР»СЊ
  */
 public class PrintUtil {
     private PrintUtil() {

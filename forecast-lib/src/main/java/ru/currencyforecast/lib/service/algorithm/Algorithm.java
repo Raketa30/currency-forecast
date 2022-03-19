@@ -5,11 +5,11 @@ import ru.currencyforecast.lib.domain.CurrencyData;
 import java.util.List;
 
 /**
- * Алгоритм прогноза
+ * РђР»РіРѕСЂРёС‚Рј РїСЂРѕРіРЅРѕР·Р°
  */
 public abstract class Algorithm {
     /**
-     * количество предыдущих записей, требующихся для прогноза
+     * РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРµРґС‹РґСѓС‰РёС… Р·Р°РїРёСЃРµР№, С‚СЂРµР±СѓСЋС‰РёС…СЃСЏ РґР»СЏ РїСЂРѕРіРЅРѕР·Р°
      */
     private final int baseDaysIndex;
 
@@ -22,11 +22,11 @@ public abstract class Algorithm {
     }
 
     /**
-     * Прогноз для указанного периода в днях
+     * РџСЂРѕРіРЅРѕР· РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РїРµСЂРёРѕРґР° РІ РґРЅСЏС…
      *
-     * @param dataListForAnalisys - входящий список данных
-     * @param periodDays          - прогнозируемый период
-     * @return список с прогнозом на количсетво дней
+     * @param dataListForAnalisys - РІС…РѕРґСЏС‰РёР№ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С…
+     * @param periodDays          - РїСЂРѕРіРЅРѕР·РёСЂСѓРµРјС‹Р№ РїРµСЂРёРѕРґ
+     * @return СЃРїРёСЃРѕРє СЃ РїСЂРѕРіРЅРѕР·РѕРј РЅР° РєРѕР»РёС‡СЃРµС‚РІРѕ РґРЅРµР№
      */
     public abstract List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays);
 

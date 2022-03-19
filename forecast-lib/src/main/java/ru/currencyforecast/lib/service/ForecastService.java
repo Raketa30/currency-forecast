@@ -7,35 +7,35 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Сервис прогнозов
+ * РЎРµСЂРІРёСЃ РїСЂРѕРіРЅРѕР·РѕРІ
  */
 public interface ForecastService {
     /**
-     * @return базовый индекс алгоритма
+     * @return Р±Р°Р·РѕРІС‹Р№ РёРЅРґРµРєСЃ Р°Р»РіРѕСЂРёС‚РјР°
      */
     int getAlgBaseIndex();
 
     /**
-     * Получение прогноза для определенной даты
+     * РџРѕР»СѓС‡РµРЅРёРµ РїСЂРѕРіРЅРѕР·Р° РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РґР°С‚С‹
      *
-     * @param incomingDataList - входящий список данных для анализа
-     * @param date             - конкретная дата
-     * @return список спрогнозированных данных
+     * @param incomingDataList - РІС…РѕРґСЏС‰РёР№ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С… РґР»СЏ Р°РЅР°Р»РёР·Р°
+     * @param date             - РєРѕРЅРєСЂРµС‚РЅР°СЏ РґР°С‚Р°
+     * @return СЃРїРёСЃРѕРє СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С…
      */
    Optional<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, LocalDate date);
 
     /**
-     * @param incomingDataList - входящий список данных для анализа
-     * @param period           - требуемы период прогноза
-     * @return список спрогнозированных данных
+     * @param incomingDataList - РІС…РѕРґСЏС‰РёР№ СЃРїРёСЃРѕРє РґР°РЅРЅС‹С… РґР»СЏ Р°РЅР°Р»РёР·Р°
+     * @param period           - С‚СЂРµР±СѓРµРјС‹ РїРµСЂРёРѕРґ РїСЂРѕРіРЅРѕР·Р°
+     * @return СЃРїРёСЃРѕРє СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С…
      */
     List<CurrencyData> getForecastForPeriod(List<CurrencyData> incomingDataList, String period);
 
     /**
-     * Установка требуемого алгоритма прогноза
+     * РЈСЃС‚Р°РЅРѕРІРєР° С‚СЂРµР±СѓРµРјРѕРіРѕ Р°Р»РіРѕСЂРёС‚РјР° РїСЂРѕРіРЅРѕР·Р°
      *
-     * @param algorithm - алгоритм прогноза
-     * @return false если отсутствует переданный алгоритм
+     * @param algorithm - Р°Р»РіРѕСЂРёС‚Рј РїСЂРѕРіРЅРѕР·Р°
+     * @return false РµСЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїРµСЂРµРґР°РЅРЅС‹Р№ Р°Р»РіРѕСЂРёС‚Рј
      */
     boolean setAlgorithm(String algorithm);
 }

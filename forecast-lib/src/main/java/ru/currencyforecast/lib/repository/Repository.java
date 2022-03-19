@@ -6,32 +6,32 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Репозиторий данных
+ * Р РµРїРѕР·РёС‚РѕСЂРёР№ РґР°РЅРЅС‹С…
  */
 public interface Repository {
     /**
-     * Поиск по наименованию валюты
+     * РџРѕРёСЃРє РїРѕ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ РІР°Р»СЋС‚С‹
      *
-     * @param cdx - наименование валюты
-     * @return - возвращает List c данными или пустой List
+     * @param cdx - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РІР°Р»СЋС‚С‹
+     * @return - РІРѕР·РІСЂР°С‰Р°РµС‚ List c РґР°РЅРЅС‹РјРё РёР»Рё РїСѓСЃС‚РѕР№ List
      */
     List<CurrencyData> getAllDataByCdx(String cdx);
 
     /**
-     * Поиск значения по валюте и дате
+     * РџРѕРёСЃРє Р·РЅР°С‡РµРЅРёСЏ РїРѕ РІР°Р»СЋС‚Рµ Рё РґР°С‚Рµ
      *
-     * @param cdx  - наименование валюты
-     * @param date - дата
+     * @param cdx  - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РІР°Р»СЋС‚С‹
+     * @param date - РґР°С‚Р°
      * @return Optional
      */
     Optional<CurrencyData> getDataByCdxAndDate(String cdx, String date);
 
     /**
-     * Поиск значений по наименованию валюты и базовому индексу алгоритма
+     * РџРѕРёСЃРє Р·РЅР°С‡РµРЅРёР№ РїРѕ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ РІР°Р»СЋС‚С‹ Рё Р±Р°Р·РѕРІРѕРјСѓ РёРЅРґРµРєСЃСѓ Р°Р»РіРѕСЂРёС‚РјР°
      *
-     * @param cdx          - наименование валюты
-     * @param algBaseIndex - базовый индекс алгоритма
-     * @return возвращает List c данными или пустой List
+     * @param cdx          - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РІР°Р»СЋС‚С‹
+     * @param algBaseIndex - Р±Р°Р·РѕРІС‹Р№ РёРЅРґРµРєСЃ Р°Р»РіРѕСЂРёС‚РјР°
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ List c РґР°РЅРЅС‹РјРё РёР»Рё РїСѓСЃС‚РѕР№ List
      */
     List<CurrencyData> getDataByCdxAndLimitByALgBaseIndex(String cdx, int algBaseIndex);
 

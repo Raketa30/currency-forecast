@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static ru.currencyforecast.lib.common.Constant.*;
 
 /**
- * Имплементация репозитория, доступ к данным CSV файлов
+ * РРјРїР»РµРјРµРЅС‚Р°С†РёСЏ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ, РґРѕСЃС‚СѓРї Рє РґР°РЅРЅС‹Рј CSV С„Р°Р№Р»РѕРІ
  */
 @Slf4j
 public class CsvCurrencyRepository implements Repository {
@@ -65,9 +65,9 @@ public class CsvCurrencyRepository implements Repository {
     }
 
     /**
-     * @param fileDataUrl - url csv файла
-     * @param date        - дата
-     * @return список значений от указанной даты
+     * @param fileDataUrl - url csv С„Р°Р№Р»Р°
+     * @param date        - РґР°С‚Р°
+     * @return СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ РѕС‚ СѓРєР°Р·Р°РЅРЅРѕР№ РґР°С‚С‹
      */
     private List<CurrencyData> getDataFromDate(String fileDataUrl, String date) {
         LocalDate fromDate = DateTimeUtil.getLocalDate(date);
@@ -78,9 +78,9 @@ public class CsvCurrencyRepository implements Repository {
     }
 
     /**
-     * @param fileDataUrl - url csv файла
-     * @param days        - количество дней
-     * @return список значений за количество дней
+     * @param fileDataUrl - url csv С„Р°Р№Р»Р°
+     * @param days        - РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№
+     * @return СЃРїРёСЃРѕРє Р·РЅР°С‡РµРЅРёР№ Р·Р° РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№
      */
     private List<CurrencyData> getDataListByDays(String fileDataUrl, int days) {
         List<CurrencyData> currencyDataList = new ArrayList<>();
@@ -99,9 +99,9 @@ public class CsvCurrencyRepository implements Repository {
     }
 
     /**
-     * @param fileDataUrl - url csv файла
-     * @param date        - дата
-     * @return опциональное значение за конкретную дату
+     * @param fileDataUrl - url csv С„Р°Р№Р»Р°
+     * @param date        - РґР°С‚Р°
+     * @return РѕРїС†РёРѕРЅР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ Р·Р° РєРѕРЅРєСЂРµС‚РЅСѓСЋ РґР°С‚Сѓ
      */
     private Optional<CurrencyData> getDataByDate(String fileDataUrl, String date) {
         LocalDate localDate = DateTimeUtil.getLocalDate(date);
@@ -118,8 +118,8 @@ public class CsvCurrencyRepository implements Repository {
     }
 
     /**
-     * @param fileDataUrl - url csv файла
-     * @return список всех значений из файла
+     * @param fileDataUrl - url csv С„Р°Р№Р»Р°
+     * @return СЃРїРёСЃРѕРє РІСЃРµС… Р·РЅР°С‡РµРЅРёР№ РёР· С„Р°Р№Р»Р°
      */
     private List<CurrencyData> getAllData(String fileDataUrl) {
         List<CurrencyData> currencyDataList = new ArrayList<>();
@@ -132,8 +132,8 @@ public class CsvCurrencyRepository implements Repository {
     }
 
     /**
-     * @param fileDataUrl - url csv файла
-     * @return InputStream из указанного файла
+     * @param fileDataUrl - url csv С„Р°Р№Р»Р°
+     * @return InputStream РёР· СѓРєР°Р·Р°РЅРЅРѕРіРѕ С„Р°Р№Р»Р°
      * @throws UnsupportedEncodingException
      * @throws FileNotFoundException
      */

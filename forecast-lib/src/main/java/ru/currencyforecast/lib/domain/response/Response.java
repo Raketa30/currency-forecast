@@ -3,7 +3,7 @@ package ru.currencyforecast.lib.domain.response;
 import ru.currencyforecast.lib.domain.message.AbstractMessage;
 
 /**
- * Интерфейс представляющий ответ, содержащий абстрактное сообщение и тип ответа
+ * РРЅС‚РµСЂС„РµР№СЃ РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёР№ РѕС‚РІРµС‚, СЃРѕРґРµСЂР¶Р°С‰РёР№ Р°Р±СЃС‚СЂР°РєС‚РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рё С‚РёРї РѕС‚РІРµС‚Р°
  */
 public interface Response {
     <T> AbstractMessage<T> getMessage();

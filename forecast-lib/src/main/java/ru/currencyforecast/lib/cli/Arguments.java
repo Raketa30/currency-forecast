@@ -9,7 +9,7 @@ import java.util.List;
 import static ru.currencyforecast.lib.common.Constant.*;
 
 /**
- * Аргументы приходящие в командной строке, обработанные JCommander
+ * РђСЂРіСѓРјРµРЅС‚С‹ РїСЂРёС…РѕРґСЏС‰РёРµ РІ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРµ, РѕР±СЂР°Р±РѕС‚Р°РЅРЅС‹Рµ JCommander
  */
 @Getter
 @NoArgsConstructor

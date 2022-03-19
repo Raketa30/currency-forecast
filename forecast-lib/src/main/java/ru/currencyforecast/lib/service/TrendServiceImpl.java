@@ -28,6 +28,10 @@ public class TrendServiceImpl implements TrendService {
         return Optional.empty();
     }
 
+    /**
+     * @param forecast карта со списком прогнозов
+     * @return диаграмму plot
+     */
     private Plot createPlot(Map<String, List<CurrencyData>> forecast) {
         Plot plot = Plot.create();
         plot.title("CURRENCY");
@@ -42,6 +46,11 @@ public class TrendServiceImpl implements TrendService {
         return plot;
     }
 
+    /**
+     *
+     * @param plot - диаграмма
+     * @return true если файл изображения успешно сохранен
+     */
     private boolean isSuccesfullySavedImage(Plot plot) {
         try {
             if (Files.notExists(Paths.get(PLOT_IMAGE_SAVING_LINK))) {

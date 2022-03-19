@@ -4,13 +4,13 @@ import ru.currencyforecast.lib.domain.ForecastRequest;
 import ru.currencyforecast.lib.domain.response.Response;
 
 /**
- * Основной сервис приложения
+ * РћСЃРЅРѕРІРЅРѕР№ СЃРµСЂРІРёСЃ РїСЂРёР»РѕР¶РµРЅРёСЏ
  */
 public interface Service {
     /**
-     * метод возвращающий ответ прогноза
+     * РјРµС‚РѕРґ РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ РѕС‚РІРµС‚ РїСЂРѕРіРЅРѕР·Р°
      *
-     * @param request - запрос прогноза
+     * @param request - Р·Р°РїСЂРѕСЃ РїСЂРѕРіРЅРѕР·Р°
      * @return Response
      */
     Response getForecastResponse(ForecastRequest request);

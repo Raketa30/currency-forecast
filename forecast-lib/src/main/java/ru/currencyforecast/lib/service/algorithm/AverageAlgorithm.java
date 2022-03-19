@@ -10,7 +10,7 @@ import java.util.List;
 import static ru.currencyforecast.lib.common.Constant.ALG_AVG_BASE;
 
 /**
- * Алгоритм по среднему значению за период
+ * РђР»РіРѕСЂРёС‚Рј РїРѕ СЃСЂРµРґРЅРµРјСѓ Р·РЅР°С‡РµРЅРёСЋ Р·Р° РїРµСЂРёРѕРґ
  */
 public class AverageAlgorithm extends Algorithm {
 

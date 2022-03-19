@@ -68,8 +68,8 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * @param arguments - аргументы
-     * @return true - если все аргументы null
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹
+     * @return true - РµСЃР»Рё РІСЃРµ Р°СЂРіСѓРјРµРЅС‚С‹ null
      */
     private boolean otherArgsIsNull(Arguments arguments) {
         return Objects.isNull(arguments.getOutput()) &&
@@ -80,9 +80,9 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * Валидация аргументов коммандной строки
+     * Р’Р°Р»РёРґР°С†РёСЏ Р°СЂРіСѓРјРµРЅС‚РѕРІ РєРѕРјРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
      *
-     * @param arguments - аргументы командной строки
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
      */
     private boolean isValidParams(Arguments arguments) {
         return isCorrectRateCurrency(arguments) &&
@@ -93,10 +93,10 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * проверка валидности списка валют
+     * РїСЂРѕРІРµСЂРєР° РІР°Р»РёРґРЅРѕСЃС‚Рё СЃРїРёСЃРєР° РІР°Р»СЋС‚
      *
-     * @param arguments - аргументы командной строки
-     * @return false если аргументы не содержат списка валюты или при большем размере этого списка
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+     * @return false РµСЃР»Рё Р°СЂРіСѓРјРµРЅС‚С‹ РЅРµ СЃРѕРґРµСЂР¶Р°С‚ СЃРїРёСЃРєР° РІР°Р»СЋС‚С‹ РёР»Рё РїСЂРё Р±РѕР»СЊС€РµРј СЂР°Р·РјРµСЂРµ СЌС‚РѕРіРѕ СЃРїРёСЃРєР°
      */
     private boolean isCorrectRateCurrency(Arguments arguments) {
         List<String> rate = arguments.getRate();
@@ -111,10 +111,10 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * Период или дата
+     * РџРµСЂРёРѕРґ РёР»Рё РґР°С‚Р°
      *
-     * @param arguments - аргументы командной строки
-     * @return false если аргументы содержат period и date, или не содержит вовсе
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+     * @return false РµСЃР»Рё Р°СЂРіСѓРјРµРЅС‚С‹ СЃРѕРґРµСЂР¶Р°С‚ period Рё date, РёР»Рё РЅРµ СЃРѕРґРµСЂР¶РёС‚ РІРѕРІСЃРµ
      */
     private boolean isContainsPeriodOrDate(Arguments arguments) {
         boolean containsPeriodXORDate = Objects.nonNull(arguments.getPeriod()) ^ Objects.nonNull(arguments.getDate());
@@ -126,10 +126,10 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * Наличие алгоритма
+     * РќР°Р»РёС‡РёРµ Р°Р»РіРѕСЂРёС‚РјР°
      *
-     * @param arguments - аргументы командной строки
-     * @return false если аргументы не содержат алгоритма
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+     * @return false РµСЃР»Рё Р°СЂРіСѓРјРµРЅС‚С‹ РЅРµ СЃРѕРґРµСЂР¶Р°С‚ Р°Р»РіРѕСЂРёС‚РјР°
      */
     private boolean isContainsAlg(Arguments arguments) {
         boolean hasAlg = Objects.isNull(arguments.getAlg());
@@ -140,10 +140,10 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * Отсутствие комманды -output при команде -date
+     * РћС‚СЃСѓС‚СЃС‚РІРёРµ РєРѕРјРјР°РЅРґС‹ -output РїСЂРё РєРѕРјР°РЅРґРµ -date
      *
-     * @param arguments - аргументы командной строки
-     * @return false если аргументы содержат date и output команды.
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+     * @return false РµСЃР»Рё Р°СЂРіСѓРјРµРЅС‚С‹ СЃРѕРґРµСЂР¶Р°С‚ date Рё output РєРѕРјР°РЅРґС‹.
      */
     private boolean isValidDateAndOutput(Arguments arguments) {
         boolean dateAndOutput = Objects.nonNull(arguments.getDate()) && Objects.nonNull(arguments.getOutput());
@@ -155,10 +155,10 @@ public class CommanderImpl implements Commander {
     }
 
     /**
-     * Мультивалютность и выход
+     * РњСѓР»СЊС‚РёРІР°Р»СЋС‚РЅРѕСЃС‚СЊ Рё РІС‹С…РѕРґ
      *
-     * @param arguments - аргументы командной строки
-     * @return false Если аргументы содержат список с больше чем одной валютой и output = list.
+     * @param arguments - Р°СЂРіСѓРјРµРЅС‚С‹ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
+     * @return false Р•СЃР»Рё Р°СЂРіСѓРјРµРЅС‚С‹ СЃРѕРґРµСЂР¶Р°С‚ СЃРїРёСЃРѕРє СЃ Р±РѕР»СЊС€Рµ С‡РµРј РѕРґРЅРѕР№ РІР°Р»СЋС‚РѕР№ Рё output = list.
      */
     private boolean isValidRateAndOutput(Arguments arguments) {
         boolean isOutputListAndMultirate = Objects.nonNull(arguments.getOutput()) &&

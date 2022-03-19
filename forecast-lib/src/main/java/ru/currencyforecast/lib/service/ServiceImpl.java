@@ -49,8 +49,8 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param request - запрос прогноза
-     * @return Response с спрогнозированнм списком
+     * @param request - Р·Р°РїСЂРѕСЃ РїСЂРѕРіРЅРѕР·Р°
+     * @return Response СЃ СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРЅРј СЃРїРёСЃРєРѕРј
      */
     private Response getDataResponse(ForecastRequest request) {
         List<CurrencyData> dataByAlgorithm = getCurrencyDataList(request.getCurrencyList().get(0));
@@ -62,8 +62,8 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param request - запрос прогноза
-     * @return Response с текстовым сообщением
+     * @param request - Р·Р°РїСЂРѕСЃ РїСЂРѕРіРЅРѕР·Р°
+     * @return Response СЃ С‚РµРєСЃС‚РѕРІС‹Рј СЃРѕРѕР±С‰РµРЅРёРµРј
      */
     private Response getImageResponse(ForecastRequest request) {
         Map<String, List<CurrencyData>> currencyDataMap = getMultiCurrencyForecastMap(request.getCurrencyList(), request.getPeriodOrDate());
@@ -72,16 +72,16 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param message - сообщение
-     * @return Response с текстовым сообщением
+     * @param message - СЃРѕРѕР±С‰РµРЅРёРµ
+     * @return Response СЃ С‚РµРєСЃС‚РѕРІС‹Рј СЃРѕРѕР±С‰РµРЅРёРµРј
      */
     private Response getTextResponse(String message) {
         return new ForecastResponse<>(ResponseType.TEXT, new TextMessage(message));
     }
 
     /**
-     * @param currency - валюта прогноза
-     * @return список указанной валюты в количестве последних записи требуемых алгоритмом(algBaseIndex)
+     * @param currency - РІР°Р»СЋС‚Р° РїСЂРѕРіРЅРѕР·Р°
+     * @return СЃРїРёСЃРѕРє СѓРєР°Р·Р°РЅРЅРѕР№ РІР°Р»СЋС‚С‹ РІ РєРѕР»РёС‡РµСЃС‚РІРµ РїРѕСЃР»РµРґРЅРёС… Р·Р°РїРёСЃРё С‚СЂРµР±СѓРµРјС‹С… Р°Р»РіРѕСЂРёС‚РјРѕРј(algBaseIndex)
      */
     private List<CurrencyData> getCurrencyDataList(String currency) {
         final int algBaseIndexDays = forecastService.getAlgBaseIndex();
@@ -90,9 +90,9 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param request          - запрос прогноза
-     * @param dataListFromRepo - лист валют с репозитория
-     * @return спрогнозированый список на указанную дату или период
+     * @param request          - Р·Р°РїСЂРѕСЃ РїСЂРѕРіРЅРѕР·Р°
+     * @param dataListFromRepo - Р»РёСЃС‚ РІР°Р»СЋС‚ СЃ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ
+     * @return СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅС‹Р№ СЃРїРёСЃРѕРє РЅР° СѓРєР°Р·Р°РЅРЅСѓСЋ РґР°С‚Сѓ РёР»Рё РїРµСЂРёРѕРґ
      */
     private List<CurrencyData> getDataListByPeriodOrDate(ForecastRequest request, List<CurrencyData> dataListFromRepo) {
         String periodOrDate = request.getPeriodOrDate();
@@ -105,9 +105,9 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param currencyList - список валют
-     * @param period       - период прогноза
-     * @return карта спрогнозированных валют
+     * @param currencyList - СЃРїРёСЃРѕРє РІР°Р»СЋС‚
+     * @param period       - РїРµСЂРёРѕРґ РїСЂРѕРіРЅРѕР·Р°
+     * @return РєР°СЂС‚Р° СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРЅС‹С… РІР°Р»СЋС‚
      */
     private Map<String, List<CurrencyData>> getMultiCurrencyForecastMap(List<String> currencyList, String period) {
         Map<String, List<CurrencyData>> currencyDataMap = new HashMap<>();
@@ -121,8 +121,8 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param imageFile -файл с изображением графика
-     * @return Response с BufferеdImage, графическим изображением прогноза
+     * @param imageFile -С„Р°Р№Р» СЃ РёР·РѕР±СЂР°Р¶РµРЅРёРµРј РіСЂР°С„РёРєР°
+     * @return Response СЃ BufferРµdImage, РіСЂР°С„РёС‡РµСЃРєРёРј РёР·РѕР±СЂР°Р¶РµРЅРёРµРј РїСЂРѕРіРЅРѕР·Р°
      */
     private Response getImageResponse(File imageFile) {
         try {

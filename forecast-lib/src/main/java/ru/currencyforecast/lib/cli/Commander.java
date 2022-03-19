@@ -1,11 +1,11 @@
 package ru.currencyforecast.lib.cli;
 
 /**
- * Обработчик командной строки
+ * РћР±СЂР°Р±РѕС‚С‡РёРє РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
  */
 public interface Commander {
     /**
-     * @param command - введеная пользователем команда
+     * @param command - РІРІРµРґРµРЅР°СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РєРѕРјР°РЅРґР°
      */
     boolean execute(String command);
 }

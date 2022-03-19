@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
 import static ru.currencyforecast.lib.common.Constant.DATE_FORMAT_PATTERN;
 
 /**
- * Утилитный класс для работы с датой
+ * РЈС‚РёР»РёС‚РЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РґР°С‚РѕР№
  */
 public class DateTimeUtil {
     private DateTimeUtil() {

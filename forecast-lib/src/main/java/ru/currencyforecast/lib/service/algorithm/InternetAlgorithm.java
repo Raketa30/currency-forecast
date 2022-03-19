@@ -10,8 +10,8 @@ import java.util.List;
 import static ru.currencyforecast.lib.common.Constant.ALG_INTERNET_BASE;
 
 /**
- * Алгоритм “из интернета”. Экстраполируем по данным последнего месяца.
- * <a href="https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/LinearRegression.java.html">ссылка на алгоритм</a>
+ * РђР»РіРѕСЂРёС‚Рј вЂњРёР· РёРЅС‚РµСЂРЅРµС‚Р°вЂќ. Р­РєСЃС‚СЂР°РїРѕР»РёСЂСѓРµРј РїРѕ РґР°РЅРЅС‹Рј РїРѕСЃР»РµРґРЅРµРіРѕ РјРµСЃСЏС†Р°.
+ * <a href="https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/LinearRegression.java.html">СЃСЃС‹Р»РєР° РЅР° Р°Р»РіРѕСЂРёС‚Рј</a>
  */
 public class InternetAlgorithm extends Algorithm {
     public InternetAlgorithm() {
