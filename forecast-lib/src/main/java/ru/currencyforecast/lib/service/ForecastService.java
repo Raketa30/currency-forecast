@@ -22,7 +22,7 @@ public interface ForecastService {
      * @param date             - конкретная дата
      * @return список спрогнозированных данных
      */
-   Optional<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, LocalDate date);
+    Optional<CurrencyData> getForecastForDate(List<CurrencyData> incomingDataList, LocalDate date);
 
     /**
      * @param incomingDataList - входящий список данных для анализа

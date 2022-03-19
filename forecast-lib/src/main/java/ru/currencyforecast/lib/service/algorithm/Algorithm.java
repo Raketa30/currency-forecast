@@ -2,6 +2,9 @@ package ru.currencyforecast.lib.service.algorithm;
 
 import ru.currencyforecast.lib.domain.CurrencyData;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,15 +31,25 @@ public abstract class Algorithm {
      * @param periodDays          - прогнозируемый период
      * @return список с прогнозом на количсетво дней
      */
-    public abstract List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays);
+    public List<CurrencyData> getForcastForPeriod(List<CurrencyData> dataListForAnalisys, int periodDays) {
+        LinkedList<CurrencyData> processList = new LinkedList<>(dataListForAnalisys);
+        List<CurrencyData> resultList = new ArrayList<>();
+        String titleFormList = getDataTitleFormList(dataListForAnalisys);
+        int currencyNominal = getCurrencyNominal(dataListForAnalisys);
+        LocalDate nextDay = LocalDate.now();
+        doForecast(titleFormList, currencyNominal, nextDay, processList, resultList, periodDays);
+        return resultList;
+    }
 
-    protected String getDataTitleFormList(List<CurrencyData> currencyDataList) {
+    private String getDataTitleFormList(List<CurrencyData> currencyDataList) {
         return currencyDataList.get(0).getCdx();
     }
 
-    protected int getCurrencyNominal(List<CurrencyData> currencyDataList) {
+    private int getCurrencyNominal(List<CurrencyData> currencyDataList) {
         return currencyDataList.get(0).getNominal();
     }
+
+    protected abstract void doForecast(String cdx, int nominal, LocalDate nextDay, LinkedList<CurrencyData> processList, List<CurrencyData> resultList, int periodDays);
 }
 
 

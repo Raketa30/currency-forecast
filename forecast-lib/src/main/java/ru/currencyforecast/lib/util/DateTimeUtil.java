@@ -34,8 +34,8 @@ public class DateTimeUtil {
         return daysBetweenFromNowToDate(getLocalDate(date)) <= 0;
     }
 
-    public static long daysBetweenFromNowToDate(LocalDate date) {
-        return ChronoUnit.DAYS.between(
+    public static int daysBetweenFromNowToDate(LocalDate date) {
+        return (int)ChronoUnit.DAYS.between(
                 LocalDate.now(), date);
     }
 
