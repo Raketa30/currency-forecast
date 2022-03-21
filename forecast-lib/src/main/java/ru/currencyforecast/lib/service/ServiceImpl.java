@@ -49,6 +49,35 @@ public class ServiceImpl implements Service {
     }
 
     /**
+     * @param currency - валюта прогноза
+     * @return список указанной валюты в количестве последних записи требуемых алгоритмом(algBaseIndex)
+     */
+    private List<CurrencyData> getCurrencyDataList(String currency) {
+        final int algBaseIndexDays = forecastService.getAlgBaseIndex();
+        log.debug("ServiceImpl getDataListByAlgorithmIndex, algBaseIndexDays  - {}", algBaseIndexDays);
+        List<CurrencyData> dataByCdxAndLimitByALgBaseIndex = repository.getDataByCdxAndLimitByALgBaseIndex(currency, algBaseIndexDays);
+        if(!dataByCdxAndLimitByALgBaseIndex.isEmpty()) {
+            normilizeNominal(dataByCdxAndLimitByALgBaseIndex);
+        }
+        return dataByCdxAndLimitByALgBaseIndex;
+    }
+
+    /**
+     * @param request          - запрос прогноза
+     * @param dataListFromRepo - лист валют с репозитория
+     * @return спрогнозированый список на указанную дату или период
+     */
+    private List<CurrencyData> getDataListByPeriodOrDate(ForecastRequest request, List<CurrencyData> dataListFromRepo) {
+        String periodOrDate = request.getPeriodOrDate();
+        if (DateTimeUtil.isDate(periodOrDate)) {
+            Optional<CurrencyData> forecastForDate = forecastService.getForecastForDate(dataListFromRepo, DateTimeUtil.getLocalDate(periodOrDate));
+            return forecastForDate.map(Collections::singletonList).orElse(Collections.emptyList());
+        }
+        log.debug("ServiceImpl getCurrencyDataListByPeriodOrDate, period or date  - {}", periodOrDate);
+        return forecastService.getForecastForPeriod(dataListFromRepo, periodOrDate);
+    }
+
+    /**
      * @param request - запрос прогноза
      * @return Response с спрогнозированнм списком
      */
@@ -72,36 +101,17 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param message - сообщение
-     * @return Response с текстовым сообщением
+     * @param imageFile -файл с изображением графика
+     * @return Response с BufferеdImage, графическим изображением прогноза
      */
-    private Response getTextResponse(String message) {
-        return new ForecastResponse<>(ResponseType.TEXT, new TextMessage(message));
-    }
-
-    /**
-     * @param currency - валюта прогноза
-     * @return список указанной валюты в количестве последних записи требуемых алгоритмом(algBaseIndex)
-     */
-    private List<CurrencyData> getCurrencyDataList(String currency) {
-        final int algBaseIndexDays = forecastService.getAlgBaseIndex();
-        log.debug("ServiceImpl getDataListByAlgorithmIndex, algBaseIndexDays  - {}", algBaseIndexDays);
-        return repository.getDataByCdxAndLimitByALgBaseIndex(currency, algBaseIndexDays);
-    }
-
-    /**
-     * @param request          - запрос прогноза
-     * @param dataListFromRepo - лист валют с репозитория
-     * @return спрогнозированый список на указанную дату или период
-     */
-    private List<CurrencyData> getDataListByPeriodOrDate(ForecastRequest request, List<CurrencyData> dataListFromRepo) {
-        String periodOrDate = request.getPeriodOrDate();
-        if (DateTimeUtil.isDate(periodOrDate)) {
-            Optional<CurrencyData> forecastForDate = forecastService.getForecastForDate(dataListFromRepo, DateTimeUtil.getLocalDate(periodOrDate));
-            return forecastForDate.map(Collections::singletonList).orElse(Collections.emptyList());
+    private Response getImageResponse(File imageFile) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            return new ForecastResponse<>(ResponseType.IMAGE, new ImageMessage(bufferedImage));
+        } catch (IOException e) {
+            log.info("ServiceImpl prepareImageResponse exception - {}", e.getMessage());
         }
-        log.debug("ServiceImpl getCurrencyDataListByPeriodOrDate, period or date  - {}", periodOrDate);
-        return forecastService.getForecastForPeriod(dataListFromRepo, periodOrDate);
+        return getTextResponse(MESSAGE_WRONG_IMAGE + imageFile.getPath());
     }
 
     /**
@@ -121,17 +131,23 @@ public class ServiceImpl implements Service {
     }
 
     /**
-     * @param imageFile -файл с изображением графика
-     * @return Response с BufferеdImage, графическим изображением прогноза
+     * @param message - сообщение
+     * @return Response с текстовым сообщением
      */
-    private Response getImageResponse(File imageFile) {
-        try {
-            BufferedImage bufferedImage = ImageIO.read(imageFile);
-            return new ForecastResponse<>(ResponseType.IMAGE, new ImageMessage(bufferedImage));
-        } catch (IOException e) {
-            log.info("ServiceImpl prepareImageResponse exception - {}", e.getMessage());
+    private Response getTextResponse(String message) {
+        return new ForecastResponse<>(ResponseType.TEXT, new TextMessage(message));
+    }
+
+    private void normilizeNominal(List<CurrencyData> dataByAlgorithm) {
+
+        int lastNominal = dataByAlgorithm.get(0).getNominal();
+        for (CurrencyData currencyData : dataByAlgorithm) {
+            if (currencyData.getNominal() != lastNominal) {
+                int diff = currencyData.getNominal();
+                currencyData.setNominal(lastNominal);
+                currencyData.setCurs(currencyData.getCurs() / diff * lastNominal);
+            }
         }
-        return getTextResponse(MESSAGE_WRONG_IMAGE + imageFile.getPath());
     }
 }
 
