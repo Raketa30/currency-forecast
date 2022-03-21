@@ -139,7 +139,6 @@ public class ServiceImpl implements Service {
     }
 
     private void normilizeNominal(List<CurrencyData> dataByAlgorithm) {
-
         int lastNominal = dataByAlgorithm.get(0).getNominal();
         for (CurrencyData currencyData : dataByAlgorithm) {
             if (currencyData.getNominal() != lastNominal) {
