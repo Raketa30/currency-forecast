@@ -18,7 +18,9 @@
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${log_dir}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>
+                ${log_dir}/%d{yyyy-MM-dd}/file-log.log
+            </fileNamePattern>
         </rollingPolicy>
 
         <encoder>
@@ -34,7 +36,8 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/info-log.log
+            <fileNamePattern>
+                ${log_dir}/%d{yyyy-MM-dd}/info-log.log
             </fileNamePattern>
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -50,7 +53,8 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/debug-log.log
+            <fileNamePattern>
+                ${log_dir}/%d{yyyy-MM-dd}/debug-log.log
             </fileNamePattern>
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
